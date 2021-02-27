@@ -12,8 +12,43 @@ let keyboard =
 	]
 
 tag LevelBar
+	prop levelReached = 5
+	def levelText num
+		if num is levelReached
+			"level {num}"
+		else
+			num
+	def isUnlocked num
+		if num <= levelReached
+			return true
 	def render
 		<self> 
+			<span.last.unlocked=isUnlocked(22)> levelText(22)
+			<span.unlocked=isUnlocked(21)> levelText(21)
+			<span.unlocked=isUnlocked(20)> levelText(20)
+			<span.unlocked=isUnlocked(19)> levelText(19)
+			<span.unlocked=isUnlocked(18)> levelText(18)
+			<span.unlocked=isUnlocked(17)> levelText(17)
+			<span.unlocked=isUnlocked(16)> levelText(16)
+			<span.unlocked=isUnlocked(15)> levelText(15)
+			<span.unlocked=isUnlocked(14)> levelText(14)
+			<span.unlocked=isUnlocked(13)> levelText(13)
+			<span.unlocked=isUnlocked(12)> levelText(12)
+			<span.unlocked=isUnlocked(11)> levelText(11)
+			<span.unlocked=isUnlocked(10)> levelText(10)
+			<span.unlocked=isUnlocked(9)> levelText(9)
+			<span.unlocked=isUnlocked(8)> levelText(8)
+			<span.unlocked=isUnlocked(7)> levelText(7)
+			<span.unlocked=isUnlocked(6)> levelText(6)
+			<span.unlocked=isUnlocked(5)> levelText(5)
+			<span.unlocked=isUnlocked(4)> levelText(4)
+			<span.unlocked=isUnlocked(3)> levelText(3)
+			<span.unlocked=isUnlocked(2)> levelText(2)
+			<span.unlocked=isUnlocked(1)> levelText(1)
+	css & d:flex jc:space-evenly fld:row-reverse
+	css span flg:1 rdr:full ml:-20px pl:30px ta:center bg:cooler9 bd:4px solid cooler1/5 c:cooler6
+	css .unlocked bg: green5 bd: 4px solid green6 c:green9 fw:bold
+	css .last rd:0 bg:amber6 c:amber9 fw:bold
 
 tag Face
 	prop title = "red"
@@ -169,36 +204,45 @@ tag ChicoBird
 			<Crest color=accent>
 			<Head color=skin>
 			<Face color=skin accent=accent eyes=eyes >
+
 tag BirdView
-	css & h:300px bg:warmer2 d:block
+	css & d:flex jc:center ai:center min-height: 300px bg:warmer1
+	def render
+		<self[]>
+			<ChicoBird[$size:17px] accent="rose" skin="rose" eyes="cooler">
+tag Challenge
+	css & h:6em d:flex jc:start ai:center fld:column of:hidden
+	css .triangle w:0 h:0 bdl:20px solid transparent bdr:20px solid transparent bdt:20px solid rose5
+	css p fs:2em ws:nowrap
 	def render
 		<self>
-			<ChicoBird[$size:20px] accent="rose" skin="rose" eyes="cooler">
-tag Challenge
-	css & h:6em d:flex jc:start ai:center fld:column
-	css .triangle w:0 h:0 bdl:20px solid transparent bdr:20px solid transparent bdt:20px solid rose5
-	css p fs:2em
-	def render
-		<self> 
 			<.triangle>
-			<p> "កាល​ពី​ដើម​ដំបូង​បង្អស់ ព្រះ‌បន្ទូល មាន​ព្រះ‌ជន្ម​គង់​នៅ។ ព្រះ‌បន្ទូល​គង់​នៅ​ជា​មួយ ព្រះ‌ជាម្ចាស់ ហើយ​ព្រះ‌បន្ទូល​ជា​ព្រះ‌ជាម្ចាស់។"
+			<p[ff:mono]> "កាល​ពី​ដើម​ដំបូង​បង្អស់ ព្រះ‌បន្ទូល មាន​ព្រះ‌ជន្ម​គង់​នៅ។ ព្រះ‌បន្ទូល​គង់​នៅ​ជា​មួយ ព្រះ‌ជាម្ចាស់ ហើយ​ព្រះ‌បន្ទូល​ជា​ព្រះ‌ជាម្ចាស់។"
 tag Keyboard
 	css &
-		.lpinky bg: rose5
-		.lring bg: pink5
-		.lmiddle bg: violet5
-		.lindex bg: blue5
-		.thumbs bg: yellow3
-		.rindex bg: teal5
-		.rmiddle bg: lime5
-		.rring bg: amber5
-		.rpinky bg: orange5
+		.lpinky bg: rose5 @active: rose4
+		.lring bg: pink5 @active: pink4
+		.lmiddle bg: violet5 @active: violet4
+		.lindex bg: blue5 @active: blue4
+		.thumbs bg: yellow3 @active: yellow2
+		.rindex bg: teal5 @active: teal4
+		.rmiddle bg: lime5 @active: lime4
+		.rring bg: amber5 @active: amber4
+		.rpinky bg: orange5 @active: orange4
 	prop kb = [
-		['`','1','2','3','4','5','6','7','8','9','0','minus','plus','delete','tab','q','w','e','r','t','y','u','i','o','p','[',']','\\','caps lock','a','s','d','f','g','h','j','k','l',';','\'','return','shift','z','x','c','v','b','n','m',',','.','/','shift','control','opt','command','space','command','option','control','⇠','⇡','⇣','⇢']
-		['`','1','2','3','4','5','6','7','8','9','0','minus','plus','delete','tab','q','w','e','r','t','y','u','i','o','p','[',']','\\','caps lock','a','s','d','f','g','h','j','k','l',';','\'','return','shift','z','x','c','v','b','n','m',',','.','/','shift','control','opt','command','space','command','option','control','⇠','⇡','⇣','⇢']
-		['«','១','២','៣','៤','៥','៦','៧','៨','៩','០','ឥ','ឲ','delete','tab','ឆ','ឹ','េ','រ','ត','យ','ុ','ិ','ោ','ផ','ៀ','ឪ','ឭ','caps lock','ា','ស','ដ','ថ','ង','ហ','្','ក','ល','ើ','់','return','shift','ឋ','ខ','ច','វ','ប','ន','ម','ឦ','។','៊','shift','fn','ctrl','opt','cmd','space','cmd','opt','control','⇠','⇡','⇣','⇢']
-		['»','!','ៗ','"','៛','%','៍','័','៏','ឰ','ឳ','៌','៎','delete','tab','ឈ','ឺ','ែ','ឬ','ទ','ួ','ូ','ី','ៅ','ភ','ឿ','ឧ','ឮ','caps lock','ឫ','ៃ','ឌ','ធ','អ','ះ','ញ','គ','ឡ','៖','៉','return','shift','ឍ','ឃ','ជ','ៈ','ព','ណ','ំ','ឱ','៕','ឯ','shift','fn','ctrl','opt','cmd','space','cmd','opt','control','⇠','⇡','⇣','⇢']
+		['`','1','2','3','4','5','6','7','8','9','0','minus','plus','delete','tab','q','w','e','r','t','y','u','i','o','p','[',']','\\','caps lock','a','s','d','f','g','h','j','k','l',';','\'','return','shift','z','x','c','v','b','n','m',',','.','/','shift','fn','control','alt','command','space','command','option','control','⇠','⇡','⇣','⇢']
+		['`','1','2','3','4','5','6','7','8','9','0','minus','plus','delete','tab','q','w','e','r','t','y','u','i','o','p','[',']','\\','caps lock','a','s','d','f','g','h','j','k','l',';','\'','return','shift','z','x','c','v','b','n','m',',','.','/','shift','fn','control','alt','command','space','command','option','control','⇠','⇡','⇣','⇢']
+		['«','១','២','៣','៤','៥','៦','៧','៨','៩','០','ឥ','ឲ','delete','ថេប','ឆ','ឹ','េ','រ','ត','យ','ុ','ិ','ោ','ផ','ៀ','ឪ','ឭ','ប្តូរជាប់','ា','ស','ដ','ថ','ង','ហ','្','ក','ល','ើ','់','បញ្ចូល','ប្តូរ','ឋ','ខ','ច','វ','ប','ន','ម','ឦ','។','៊','ប្តូរ','fn','ctrl','ជំនួស','cmd','space','cmd','ជំនួស','fn','⇠','⇡','⇣','⇢']
+		['»','!','ៗ','"','៛','%','៍','័','៏','ឰ','ឳ','៌','៎','delete','tab','ឈ','ឺ','ែ','ឬ','ទ','ួ','ូ','ី','ៅ','ភ','ឿ','ឧ','ឮ','caps lock','ឫ','ៃ','ឌ','ធ','អ','ះ','ញ','គ','ឡ','៖','៉','return','shift','ឍ','ឃ','ជ','ៈ','ព','ណ','ំ','ឱ','៕','ឯ','ប្តូរ','fn','ctrl','ជំនួស','cmd','space','cmd','ជំនួស','fn','⇠','⇡','⇣','⇢']
 	]
+	prop basic = true
+	prop bottomKeys = {
+		macbook: ['fn','control','option','cmd','space','cmd','option','control','⇠','⇡','⇣','⇢']
+		mac: ['ctrl','opt','cmd','space','cmd','opt','ctrl']
+		win: ['ctrl','fn','win','alt','space','alt','win','menu','ctrl']
+		basic: ['','opt','','space','','alt','','']
+	}
+		
 	prop language = 2
 	prop current = language
 	def shiftChar
@@ -209,84 +253,77 @@ tag Keyboard
 		render!
 	def render
 		<self>
-			<section>
-				<.board >
-					<.key .square .lpinky  > kb[current][0]
-					<.key .square .lpinky > kb[current][1]
-					<.key .square .lring > kb[current][2]
-					<.key .square .lmiddle > kb[current][3]
-					<.key .square .lindex > kb[current][4]
-					<.key .square .lindex > kb[current][5]
-					<.key .square .rindex > kb[current][6]
-					<.key .square .rindex > kb[current][7]
-					<.key .square .rmiddle > kb[current][8]
-					<.key .square .rring > kb[current][9]
-					<.key .square .rpinky > kb[current][10]
-					<.key .square .rpinky > kb[current][11]
-					<.key .square .rpinky > kb[current][12]
-					<.key .longer .rpinky  .delete> kb[current][13]
-					<.key .long .lpinky  .tab> kb[current][14]
-					<.key .square .lpinky > kb[current][15]
-					<.key .square .lring > kb[current][16]
-					<.key .square .lmiddle > kb[current][17]
-					<.key .square .lindex > kb[current][18]
-					<.key .square .lindex > kb[current][19]
-					<.key .square .rindex > kb[current][20]
-					<.key .square .rindex > kb[current][21]
-					<.key .square .rmiddle > kb[current][22]
-					<.key .square .rring > kb[current][23]
-					<.key .square .rpinky > kb[current][24]
-					<.key .square .rpinky > kb[current][25]
-					<.key .square .rpinky > kb[current][26]
-					<.key .long .rpinky  .backslash> kb[current][27]
-					<.key .longer .lpinky  .capslock> kb[current][28]
-					<.key .square .lpinky > kb[current][29]
-					<.key .square .lring > kb[current][30]
-					<.key .square .lmiddle > kb[current][31]
-					<.key .square .lindex > kb[current][32]
-					<.key .square .lindex > kb[current][33]
-					<.key .square .rindex > kb[current][34]
-					<.key .square .rindex > kb[current][35]
-					<.key .square .rmiddle > kb[current][36]
-					<.key .square .rring > kb[current][37]
-					<.key .square .rpinky > kb[current][38]
-					<.key .square .rpinky > kb[current][39]
-					<.key .longer .rpinky .return> kb[current][40]
-					<.key .longest .lpinky .leftshift> kb[current][41]
-					<.key .square .lpinky > kb[current][42]
-					<.key .square .lring > kb[current][43]
-					<.key .square .lmiddle > kb[current][44]
-					<.key .square .lindex > kb[current][45]
-					<.key .square .lindex > kb[current][46]
-					<.key .square .rindex > kb[current][47]
-					<.key .square .rindex > kb[current][48]
-					<.key .square .rmiddle > kb[current][49]
-					<.key .square .rring > kb[current][50]
-					<div$from.key .square .rpinky > kb[current][51]
-					<.key .longest .rpinky .rightshift> kb[current][52]
-					<.key .square .lpinky .lfn> kb[current][53]
-					<.key .square .lpinky .lcontrol> kb[current][54]
-					<.key .square .lpinky .lalt> kb[current][55]
-					<.key .long .lpinky .command> kb[current][56]
-					<.key .thumbs  .space > kb[current][57]
-					<.key .square .rring .rcommand> kb[current][58]
-					<.key .square .rpinky .alt> kb[current][59]
-					<.key .square .rindex .larrow> kb[current][61]
-					<.square .updown[d:flex fld:column gc: span 2 bg:transparent]>
-						<.rmiddle .up> kb[current][62]
-						<.rmiddle .down> kb[current][63]
-					<div$anchor.square.key  .rring  .rarrow > kb[current][64]
+			<.board >
+				<.key .square .lpinky  > kb[current][0]
+				<.key .square .lpinky > kb[current][1]
+				<.key .square .lring > kb[current][2]
+				<.key .square .lmiddle > kb[current][3]
+				<.key .square .lindex > kb[current][4]
+				<.key .square .lindex > kb[current][5]
+				<.key .square .rindex > kb[current][6]
+				<.key .square .rindex > kb[current][7]
+				<.key .square .rmiddle > kb[current][8]
+				<.key .square .rring > kb[current][9]
+				<.key .square .rpinky > kb[current][10]
+				<.key .square .rpinky > kb[current][11]
+				<.key .square .rpinky > kb[current][12]
+				<.key .longer .rpinky  .delete> kb[current][13]
+				<.key .long .lpinky  .tab> kb[current][14]
+				<.key .square .lpinky > kb[current][15]
+				<.key .square .lring > kb[current][16]
+				<.key .square .lmiddle > kb[current][17]
+				<.key .square .lindex > kb[current][18]
+				<.key .square .lindex > kb[current][19]
+				<.key .square .rindex > kb[current][20]
+				<.key .square .rindex > kb[current][21]
+				<.key .square .rmiddle > kb[current][22]
+				<.key .square .rring > kb[current][23]
+				<.key .square .rpinky > kb[current][24]
+				<.key .square .rpinky > kb[current][25]
+				<.key .square .rpinky > kb[current][26]
+				<.key .long .rpinky  .backslash> kb[current][27]
+				<.key .longer .lpinky  .capslock> kb[current][28]
+				<.key .square .lpinky > kb[current][29]
+				<.key .square .lring > kb[current][30]
+				<.key .square .lmiddle > kb[current][31]
+				<.key .square .lindex > kb[current][32]
+				<.key .square .lindex > kb[current][33]
+				<.key .square .rindex > kb[current][34]
+				<.key .square .rindex > kb[current][35]
+				<.key .square .rmiddle > kb[current][36]
+				<.key .square .rring > kb[current][37]
+				<.key .square .rpinky > kb[current][38]
+				<.key .square .rpinky > kb[current][39]
+				<.key .longer .rpinky .return> kb[current][40]
+				<.key .longest .lpinky .leftshift> kb[current][41]
+				<.key .square .lpinky > kb[current][42]
+				<.key .square .lring > kb[current][43]
+				<.key .square .lmiddle > kb[current][44]
+				<.key .square .lindex > kb[current][45]
+				<.key .square .lindex > kb[current][46]
+				<.key .square .rindex > kb[current][47]
+				<.key .square .rindex > kb[current][48]
+				<.key .square .rmiddle > kb[current][49]
+				<.key .square .rring > kb[current][50]
+				<div$from.key .square .rpinky > kb[current][51]
+				<.key .longest .rpinky .rightshift> kb[current][52]
+				<.key .square .lpinky .lfn .disabled=basic> if basic then '' else kb[current][53]
+				<.key .square .lpinky .lcontrol .disabled=basic> if basic then '' else kb[current][54]
+				<.key .square .lpinky .lalt> kb[current][55]
+				<.key .long .lpinky .command .disabled=basic> if basic then '' else kb[current][56]
+				<.key .thumbs  .space > kb[current][57]
+				<.key .square .disabled=basic .rring .rcommand> if basic then '' else kb[current][58]
+				<.key .square .rpinky .alt> kb[current][59]
+				<.key .disabled=basic .square .rindex .larrow> kb[current][61]
+				<.square .updown[d:flex fld:column gc: span 2 bg:transparent]>
+					<.rmiddle.disabled .up> kb[current][62]
+					<.rmiddle.disabled .down> kb[current][63]
+				<div.square.key.disabled=basic  .rring  .rarrow > kb[current][64]
 	global css body *
 			margin: 0
 			padding: 0
 			box-sizing: border-box
 			font-family: Arial, Helvetica, sans-serif
-
-	css section
-		d: flex
-		jc: center
-		bg:cooler9
-		p:6
 	css .board
 		fs:12px
 		padding: 1em
@@ -306,18 +343,22 @@ tag Keyboard
 	css .longest
 		grid-column: span 5
 	css .key 
-		background-color: white
 		rd: lg
 		ai:center
 		pos: relative
 		d:grid jc:center
+		of:hidden
+		us:none
 		svg 
 			d:block mx:auto
 			position: absolute
 			t: 50%
 			transform: translateY(-50%) size:1.2em
 		@hover 
-			border: 2px solid #eeeeee
+			shadow: outline
+		&.disabled
+			bg:cooler6 @hover:cooler6
+			bxs:none
 
 	css .updown
 		d:flex
@@ -325,17 +366,23 @@ tag Keyboard
 		jc:space-between
 		> *
 			d:grid jc:center rd:lg h:45% ai:center
-			@hover
-				border: 2px solid #eeeeee
+			us:none
+			&.disabled bg:cooler6 @active:cooler6
+				bxs@hover:none
+			bxs@hover:outline
 
 	css .space 
 		grid-column: span 11
+
 tag app
+	css d:flex fld:column min-height:100vh
 	def render
 		<self>
 			<LevelBar>
-			<BirdView>
-			<Challenge>
-			<Keyboard>
+			<section[flg:1 d:flex fld:column]>
+				<BirdView[flg:1]>
+				<Challenge>
+			<section[bg:cooler9 d:flex jc:center py:4]>
+				<Keyboard>
 	
 imba.mount <app>
