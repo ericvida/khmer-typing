@@ -18,7 +18,6 @@ let score =
 	accuracy: 0
 
 
-
 let basic = yes
 
 # this is for selecting the UI language, but I haven't created alternative text fro the entire UI, but it's something I plan to do.
@@ -38,16 +37,14 @@ let levelsTotal = challenges.length
 let currentLetter = 3
 
 # Current Level Change this number to typing challenge start with 1
-let levelReached = 4
+let levelReached = 0
 
-# Level Tracker
+# Level Trackerf
 tag level-tracker
-	prop lvl = levelReached
-	prop total = levelsTotal
-
+	prop lvl = levelReached + 1
+	prop total = levelsTotalf
 	css .active
-		bg:lime5
-	
+		bg:lime5	
 	def levelText num
 		if num is levelReached
 			num
@@ -63,8 +60,12 @@ tag level-tracker
 				css pos: absolute bg:cooler9 h:30px w:100% d:block
 			<.fg>
 				css pos: absolute bg:lime5 h:30px w:{100/total * lvl}% d:block
-			<h1> "levels"
+			<h1> 
 				css c:lime5 l:10px t:35px fw:bold pos: absolute
+				if data.ui_language is "english"
+					"levels"
+				if data.ui_language is "khmer"
+					"កម្រិត"
 					
 			<.steps>
 				css pos: absolute w:100%
@@ -97,13 +98,22 @@ tag type-score
 		<self[]> 
 			<.wpm> 
 				<span> score.wpm
-				"words per minute"
+				if data.ui_language is "english"
+					" Words Per Minute"
+				if data.ui_language is "khmer"
+					" ពាក្យក្នុងមួយនាទី"
 			<.acc> 
 				<span.warning> score.accuracy + "%"
-				" accuracy"
+				if data.ui_language is "english"
+					" Accuracy"
+				if data.ui_language is "khmer"
+					" ភាព​ត្រឹមត្រូវ"
 			<.typos> 
 				<span> score.typos
-				" typos"
+				if data.ui_language is "english"
+					" Mistakes"
+				if data.ui_language is "khmer"
+					" កំហុស"
 
 # disabled for now
 tag bird-view
@@ -131,9 +141,6 @@ tag type-challenge
 			when 'script' then return "'Moul', cursive"
 			when 'modern' then return "'Dangrek', cursive"
 			else return "'Freehand', cursive"
-
-
-
 	def render
 		<self [ff:{fontFamily!}]>
 			<div>
@@ -163,34 +170,48 @@ tag app-settings
 
 	def render
 		<self>
-			css d:flex flf:wrap jc:space-around
-				bg:cooler9
-				p:3 
 			<div>
 				<input bind=data.colored #colorkeys type="checkbox" name="keylang" @input=toggleColored> 
-				<label for="colorkeys" name="keylang"> "Color Keys"
-					css c:gray1
+				<label for="colorkeys" name="keylang"> 
+					if data.ui_language is "english"
+						" Colors"
+					if data.ui_language is "khmer"
+						" មានពណ៌"
 			<div>
-				<select bind=data.currentLanguage>
-					<option value="0"> "English"
-					<option value="2"> "Khmer"
-				<label> " Keyboard Language"
-					css c:gray1
+				<select bind=data.keyboard_language>
+					<option value="english" @click=setKeyboardLanguage("english")> "English"
+					<option value="khmer" @click=setKeyboardLanguage("khmer")> "Khmer"
+				<label> 
+					if data.ui_language is "english"
+						" Keyboard Language"
+					if data.ui_language is "khmer"
+						" ភាសាក្តារចុច"
 			<div>
-				<select bind=data.UILanguage>
-					<option value="English" @click=setLanguage("English")> "English"
-					<option value="Khmer" @click=setLanguage("Khmer")> "Khmer"
-				<label> " UI Language"
-					css c:gray1
+				<select bind=data.ui_language>
+					<option value="english" @click=setUILanguage("english")> "English"
+					<option value="khmer" @click=setUILanguage("khmer")> "Khmer"
+				<label> 
+					if data.ui_language is "english"
+						" App Language"
+					if data.ui_language is "khmer"
+						" ភាសាកម្មវិធី"
 			<div>
-				<select bind=khmerStyle>
-					<option @click=setChallengeFont("Handwritten") value="Handwritten"> "Handwritten"
-					<option @click=setChallengeFont("Modern") value="Modern"> "Modern"
-					<option @click=setChallengeFont("Script") value="Script"> "Script"
-				<label> " font style"
-					css c:gray1
+				<select bind=data.challenge_font>
+					<option @click=setChallengeFont("handwritten") value="handwritten"> "Handwritten"
+					<option @click=setChallengeFont("modern") value="modern"> "Modern"
+					<option @click=setChallengeFont("script") value="script"> "Script"
+				<label> 
+					if data.ui_language is "english"
+						" Khmer Font"
+					if data.ui_language is "khmer"
+						" ពុម្ពអក្សរខ្មែរ"
 
-
+	css d:flex 
+		flf:wrap 
+		jc:space-around
+		bg:cooler9
+		p:3 
+		label c:gray1
 let state = new State()
 
 tag app-root
@@ -205,10 +226,10 @@ tag app-root
 				section
 					max-width:100%
 			<section>
-				<level-tracker>
+				<level-tracker data=state>
 			<section>
 				css flex: 1 0  d:flex fld:column
-				<type-score[fl:0 1 100px]>
+				<type-score[fl:0 1 100px] data=state>
 				# <bird-view[fl: 1 0 of:hidden]>
 				<type-challenge[fl: 1 0 bg:cooler9 jc:center d:flex ai:center] data=state>
 			<section>
