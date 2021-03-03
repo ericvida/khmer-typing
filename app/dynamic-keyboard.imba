@@ -571,8 +571,9 @@ const keys = [
 	finger: 'ninth'
 	status: 'disabled'
 ]
-
-export tag keyboard-viewer
+# TODO: pressed state not working in khmer keyboard language
+# TODO: space press is not showing
+export tag dynamic-keyboard
 	pressed_keys = []
 	letter_index = 0
 	def mount

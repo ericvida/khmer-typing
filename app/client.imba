@@ -1,6 +1,6 @@
 import 'imba/preflight.css'
 import {challenges} from './challenges'
-import './keyboardviewer'
+import './dynamic-keyboard'
 import {Bird} from './bird'
 import {State} from './state'
 global css @root
@@ -40,6 +40,7 @@ let currentLetter = 3
 let levelReached = 0
 
 # Level Trackerf
+# TODO: level tracker is not visible for some reason. Not sure why it dissapeared
 tag level-tracker
 	prop lvl = levelReached + 1
 	prop total = levelsTotalf
@@ -83,6 +84,7 @@ tag level-tracker
 								item + 1
 
 # Typing Score
+
 tag type-score
 	css bg:cooler9 d:flex jc:space-evenly
 		c:cooler1
@@ -234,7 +236,7 @@ tag app-root
 				<type-challenge[fl: 1 0 bg:cooler9 jc:center d:flex ai:center] data=state>
 			<section>
 				css d:flex py:4 jc:center bg:cooler9 
-				<keyboard-viewer data=state>
+				<dynamic-keyboard data=state>
 			<section>
 				css fl:1 bg:cooler9
 			<section>
