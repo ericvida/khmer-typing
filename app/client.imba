@@ -1,11 +1,15 @@
 import 'imba/preflight.css'
-import '@polymer/paper-toggle-button'
-import {Bird} from './bird.imba'
+import {challenges} from './challenges'
+import './keyboardviewer'
+import {Bird} from './bird'
+import {State} from './state'
 global css @root
 	ff:sans
-	--font-khmer-headings: 'Moul', cursive
-	--font-khmer-handwritten: 'Freehand', cursive
-	--font-khmer-modern: 'Dangrek', cursive
+	# --font-khmer-headings: 'Moul', cursive
+	# --font-khmer-handwritten: 'Freehand', cursive
+	# --font-khmer-modern: 'Dangrek', cursive
+
+
 
 # score state.
 let score = 
@@ -13,24 +17,12 @@ let score =
 	typos: 0
 	accuracy: 0
 
-# Typing Challenges. It's easier to type on a string, but easier to style if an array, so I use split.
-let challenges = [
-	('ថ ្ ថ ្ ថ ថ ្ ថ ្ ថ ថ ្ ្ ថ ថ ្ ថ').split('')
-	('ដ ក ក ដ ក ដ ក ដ ដ ក ក ក ដ ក ដ').split('')
-	('ស ល ស ល ល ស ស ល ស ស ល ល').split('')
-	('ា ើ ើ ា ា ើ ើ ា ើ ា ើ ា ា ើ ា').split('')
-	('ក្ក សា ថ្ថ លា ល្ល ដើ សើ ស្ស ថា ក្ក ល្ល ថ្ថ លា').split('')
-	
-]
+
 
 let basic = yes
-let colored = yes
-
-# State of desired font for the challenge
-let khmerStyle = 'handwritten'
 
 # this is for selecting the UI language, but I haven't created alternative text fro the entire UI, but it's something I plan to do.
-let UILanguage = "English"
+# let UILanguage = "English"
 
 # This selects the bird collor from the array, so by changing this number we could change the bird color.
 let birdcolor = 11
@@ -38,21 +30,6 @@ let birdcolor = 11
 # this was for easily changing the bird color, but I took the bird out for now.
 let birdcolors = ["rose","red","pink","fuchsia","purple","indigo","blue","teal","sky","yellow","amber","orange"]
 
-# 0 selects English & 2 selects khmer, 3 & 4 are shift layout for english and khmer.
-# LANGUAGE SELECT
-# 0 is english keyboard
-# 1 is english + shift
-# 2 is khmer 
-# 3 is khmer + shift
-let currentLanguage = 2
-
-# Keyboard options. odd numbers are non-shift, and even numbers are shift keys.
-let kb = [
-		['\`','1','2','3','4','5','6','7','8','9','0','\-','\=','delete','tab','q','w','e','r','t','y','u','i','o','p','[',']','\\','caps lock','a','s','d','f','g','h','j','k','l',';','\'','return','shift','z','x','c','v','b','n','m',',','.','/','shift','fn','control','alt','command','space','command','option','control','⇠','⇡','⇣','⇢']
-		['\~','!','@','#','$','%','^','&','*','(',')','\_','\+','delete','tab','Q','W','E','R','T','Y','U','I','O','P','\{','\}','\|','caps lock','A','S','D','F','G','H','J','K','L','\:','\"','return','shift','Z','X','C','V','B','N','M','<','>','?','shift','fn','control','alt','command','space','command','option','control','⇠','⇡','⇣','⇢']
-		['«','១','២','៣','៤','៥','៦','៧','៨','៩','០','ឥ','ឲ','delete','ថេប','ឆ','ឹ','េ','រ','ត','យ','ុ','ិ','ោ','ផ','ៀ','ឪ','ឭ','ប្តូរជាប់','ា','ស','ដ','ថ','ង','ហ','្','ក','ល','ើ','់','បញ្ចូល','ប្តូរ','ឋ','ខ','ច','វ','ប','ន','ម','ឦ','។','៊','ប្តូរ','fn','ctrl','ជំនួស','cmd','space','cmd','ជំនួស','fn','⇠','⇡','⇣','⇢']
-		['»','!','ៗ','"','៛','%','៍','័','៏','ឰ','ឳ','៌','៎','delete','ថេប','ឈ','ឺ','ែ','ឬ','ទ','ួ','ូ','ី','ៅ','ភ','ឿ','ឧ','ឮ','ប្តូរជាប់','ឫ','ៃ','ឌ','ធ','អ','ះ','ញ','គ','ឡ','៖','៉','បញ្ចូល','ប្តូរ','ឍ','ឃ','ជ','ៈ','ព','ណ','ំ','ឱ','៕','ឯ','ប្តូរ','fn','ctrl','ជំនួស','cmd','space','cmd','ជំនួស','fn','⇠','⇡','⇣','⇢']
-	]
 
 # this stores the number of challenges available
 let levelsTotal = challenges.length
@@ -67,7 +44,7 @@ let levelReached = 4
 tag level-tracker
 	prop lvl = levelReached
 	prop total = levelsTotal
-	
+
 	css .active
 		bg:lime5
 	
@@ -142,14 +119,23 @@ tag bird-view
 
 # Type Challenge
 tag type-challenge
-	css & ff:khmer-handwritten fs:2em
+	css fs:2em
 	css span c:cooler1
 		fs:.4em @xs: .5em @sm: .6em @md: .8em @lg: 1em
 	css .correct c:cooler7
 	css .wrong c:rose5/30
 	css .current c:lime5  bdb:1px solid lime5
+
+	def fontFamily
+		switch data.challenge_font.toLowerCase!
+			when 'script' then return "'Moul', cursive"
+			when 'modern' then return "'Dangrek', cursive"
+			else return "'Freehand', cursive"
+
+
+
 	def render
-		<self> 
+		<self [ff:{fontFamily!}]>
 			<div>
 				for item, i of challenges[levelReached]
 					if i is currentLetter
@@ -160,179 +146,52 @@ tag type-challenge
 					else
 						<span> "{item}"
 
-# Keyboard Viewer
-tag keyboard-viewer
-	css &
-		p:10px rd:md d:inline-block bg:cooler8 bxs:sm,md,md,xl
-		.lpinky bg: rose5
-		.lring bg: pink5
-		.lmiddle bg: violet5
-		.lindex bg: blue5
-		.thumbs bg: yellow3 
-		.rindex bg: teal5
-		.rmiddle bg: lime5
-		.rring bg: amber5
-		.rpinky bg: orange5
-	def shiftChar
-		currentLanguage = currentLanguage + 1
-		render!
-	def unshiftChar
-		currentLanguage = currentLanguage - 1
-		render!
-	def render
-		<self>
-			<.board>
-				<.key .square .lpinky=colored  > <span> kb[currentLanguage][0]
-				<.key .square .lpinky=colored > <span> kb[currentLanguage][1]
-				<.key .square .lring=colored > <span> kb[currentLanguage][2]
-				<.key .square .lmiddle=colored > <span> kb[currentLanguage][3]
-				<.key .square .lindex=colored > <span> kb[currentLanguage][4]
-				<.key .square .lindex=colored > <span> kb[currentLanguage][5]
-				<.key .square .rindex=colored > <span> kb[currentLanguage][6]
-				<.key .square .rindex=colored > <span> kb[currentLanguage][7]
-				<.key .square .rmiddle=colored > <span> kb[currentLanguage][8]
-				<.key .square .rring=colored > <span> kb[currentLanguage][9]
-				<.key .square .rpinky=colored > <span> kb[currentLanguage][10]
-				<.key .square .rpinky=colored > <span> kb[currentLanguage][11]
-				<.key .square .rpinky=colored > <span> kb[currentLanguage][12]
-				<.key .longer .rpinky=colored  .delete> <span> kb[currentLanguage][13]
-				<.key .long .lpinky=colored  .tab> <span> kb[currentLanguage][14]
-				<.key .square .lpinky=colored > <span> kb[currentLanguage][15]
-				<.key .square .lring=colored > <span> kb[currentLanguage][16]
-				<.key .square .lmiddle=colored > <span> kb[currentLanguage][17]
-				<.key .square .lindex=colored > <span> kb[currentLanguage][18]
-				<.key .square .lindex=colored > <span> kb[currentLanguage][19]
-				<.key .square .rindex=colored > <span> kb[currentLanguage][20]
-				<.key .square .rindex=colored > <span> kb[currentLanguage][21]
-				<.key .square .rmiddle=colored > <span> kb[currentLanguage][22]
-				<.key .square .rring=colored > <span> kb[currentLanguage][23]
-				<.key .square .rpinky=colored > <span> kb[currentLanguage][24]
-				<.key .square .rpinky=colored > <span> kb[currentLanguage][25]
-				<.key .square .rpinky=colored > <span> kb[currentLanguage][26]
-				<.key .long .rpinky=colored  .backslash> <span> kb[currentLanguage][27]
-				<.key .longer .lpinky=colored  .capslock> <span> kb[currentLanguage][28]
-				<.key .square .lpinky=colored > <span> kb[currentLanguage][29]
-				<.key .square .lring=colored > <span> kb[currentLanguage][30]
-				<.key .square .lmiddle=colored > <span> kb[currentLanguage][31]
-				<.key .square .lindex=colored > <span> kb[currentLanguage][32]
-				<.key .square .lindex=colored > <span> kb[currentLanguage][33]
-				<.key .square .rindex=colored > <span> kb[currentLanguage][34]
-				<.key .square .rindex=colored > <span> kb[currentLanguage][35]
-				<.key .square .rmiddle=colored > <span> kb[currentLanguage][36]
-				<.key .square .rring=colored > <span> kb[currentLanguage][37]
-				<.key .square .rpinky=colored > <span> kb[currentLanguage][38]
-				<.key .square .rpinky=colored > <span> kb[currentLanguage][39]
-				<.key .longer .rpinky=colored .return> <span> kb[currentLanguage][40]
-				<.key .longest .lpinky=colored .leftshift @pointerdown.mouse.shiftChar @pointerup.mouse.unshiftChar> <span> kb[currentLanguage][41]
-				<.key .square .lpinky=colored > <span> kb[currentLanguage][42]
-				<.key .square .lring=colored > <span> kb[currentLanguage][43]
-				<.key .square .lmiddle=colored > <span> kb[currentLanguage][44]
-				<.key .square .lindex=colored > <span> kb[currentLanguage][45]
-				<.key .square .lindex=colored > <span> kb[currentLanguage][46]
-				<.key .square .rindex=colored > <span> kb[currentLanguage][47]
-				<.key .square .rindex=colored > <span> kb[currentLanguage][48]
-				<.key .square .rmiddle=colored > <span> kb[currentLanguage][49]
-				<.key .square .rring=colored > <span> kb[currentLanguage][50]
-				<div$from.key .square .rpinky=colored > <span> kb[currentLanguage][51]
-				<.key .longest .rpinky=colored .rightshift> <span> kb[currentLanguage][52]
-				<.key .square .lpinky=colored .lfn .disabled=basic> if basic then '' else <span> kb[currentLanguage][53]
-				<.key .square .lpinky=colored .lcontrol .disabled=basic> if basic then '' else <span> kb[currentLanguage][54]
-				<.key .square .lpinky=colored .lalt> <span> kb[currentLanguage][55]
-				<.key .long .lpinky=colored .command .disabled=basic> if basic then '' else <span> kb[currentLanguage][56]
-				<.key .thumbs=colored .space > <span> kb[currentLanguage][57]
-				<.key .square .disabled=basic .rring .rcommand> if basic then '' else <span> kb[currentLanguage][58]
-				<.key .square .rpinky=colored .alt> <span> kb[currentLanguage][59]
-				if !basic
-					<.key .disabled=basic .square .rindex .larrow> <span> kb[currentLanguage][60]
-				<.key .disabled=basic .square .rindex .larrow> <span> kb[currentLanguage][61]
-				<.key .square .disabled=basic [bg:transparent]>
-					<.updown.disabled=basic>
-						<.rmiddle .rmiddle .up> <span> kb[currentLanguage][62]
-						<.rmiddle .rmiddle .down> <span> kb[currentLanguage][63]
-				<div.square.key.disabled=basic  .rring  .rarrow > <span> kb[currentLanguage][64]
-	css .board
-		fs: 1em
-		d: grid jc:center
-		gtc: repeat(30, 1em)
-		grid-gap: .5em
-	css .square
-		$aspect-ratio: 1/1
-		grid-column: span 2
-		pt: calc(100% / $aspect-ratio)
-	css .long
-		grid-column: span 3
-	css .longer
-		grid-column: span 4
-	css .longest
-		grid-column: span 5
-	css .key 
-		rd: .3em
-		d:grid
-		pos: relative
-		us:none
-		transform@active: translateY(.1em)
-		bxs:sm, md, lg @hover:sm, md, lg
-		bg:cooler3 @hover:cooler1
-		span
-			pos: absolute
-			l: 50% transform:translateX(-50%)
-		svg 
-			d:block mx:auto
-			position: absolute
-			t: 50%
-			transform: translateY(-50%) size:1.2em
-		&.disabled
-			bxs:lg
-			bg:cooler6 @hover:cooler6
-	css .updown
-		rd: .3em
-		grid-column: span 2
-		pos: absolute t:0 r:0 b:0 l:0
-		d:flex jc:space-between fld:column
-		bxs:none @hover:none
-		.up, .down
-			d:flex rd:lg h:45% ai:center
-			w:100% jc: space-between
-			us:none
-			bxs@hover:outline
-		&.disabled
-			bg:transparent @hover:transparent
-			.up, .down
-				bg:cooler6 @active:cooler6
-				bxs@hover:none
-
-	css .space 
-		grid-column: span 11
 
 tag app-settings
+	def setLanguage language
+		data.setUILanguage language
+
+	def toggleColored
+		data.colored = !data.colored
+		data.setCookie('colored', data.colored)
+
+	def setChallengeFont font
+		data.challenge_font = font
+		data.setCookie('challenge_font', data.challenge_font)
+
+
+
 	def render
 		<self>
 			css d:flex flf:wrap jc:space-around
 				bg:cooler9
 				p:3 
 			<div>
-				<input bind=colored #colorkeys type="checkbox" name="keylang"> 
+				<input bind=data.colored #colorkeys type="checkbox" name="keylang" @input=toggleColored> 
 				<label for="colorkeys" name="keylang"> "Color Keys"
 					css c:gray1
 			<div>
-				<select bind=currentLanguage>
+				<select bind=data.currentLanguage>
 					<option value="0"> "English"
 					<option value="2"> "Khmer"
 				<label> " Keyboard Language"
 					css c:gray1
 			<div>
-				<select bind=UILanguage>
-					<option value="English"> "English"
-					<option value="Khmer"> "Khmer"
+				<select bind=data.UILanguage>
+					<option value="English" @click=setLanguage("English")> "English"
+					<option value="Khmer" @click=setLanguage("Khmer")> "Khmer"
 				<label> " UI Language"
 					css c:gray1
 			<div>
 				<select bind=khmerStyle>
-					<option value="Handwritten"> "Handwritten"
-					<option value="Modern"> "Modern"
-					<option value="Script"> "Script"
+					<option @click=setChallengeFont("Handwritten") value="Handwritten"> "Handwritten"
+					<option @click=setChallengeFont("Modern") value="Modern"> "Modern"
+					<option @click=setChallengeFont("Script") value="Script"> "Script"
 				<label> " font style"
 					css c:gray1
+
+
+let state = new State()
 
 tag app-root
 	css fs:.4em @xs:.5em @sm:.6em @md: .8em @lg: 1.2em @xl: 1.4em
@@ -351,14 +210,14 @@ tag app-root
 				css flex: 1 0  d:flex fld:column
 				<type-score[fl:0 1 100px]>
 				# <bird-view[fl: 1 0 of:hidden]>
-				<type-challenge[fl: 1 0 bg:cooler9 jc:center d:flex ai:center]>
+				<type-challenge[fl: 1 0 bg:cooler9 jc:center d:flex ai:center] data=state>
 			<section>
 				css d:flex py:4 jc:center bg:cooler9 
-				<keyboard-viewer>
+				<keyboard-viewer data=state>
 			<section>
 				css fl:1 bg:cooler9
 			<section>
-				<app-settings>
-				
+				<app-settings data=state>
+
 				
 imba.mount <app-root>
