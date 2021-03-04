@@ -1,3 +1,9 @@
+# This selects the bird collor from the array, so by changing this number we could change the bird color.
+let birdcolor = 11
+
+# this was for easily changing the bird color, but I took the bird out for now.
+let birdcolors = ["rose","red","pink","fuchsia","purple","indigo","blue","teal","sky","yellow","amber","orange"]
+
 tag Face
 	prop title = "red"
 	css svg
@@ -105,7 +111,7 @@ tag Legs
 				<rect x="0" y="0" width="191.605" height="164.233">
 				<path[fill:{color+"6"}] d="M96.857,18.518c5.392,0.897 5.088,8.594 4.633,14.914c-2.292,31.851 -17.427,63.215 -42.208,83.227c-11.087,8.953 -24.421,15.714 -38.621,16.439c-3.434,0.175 -7.136,-1.692 -7.353,-5.228c-0.218,-3.558 3.321,-5.794 7.321,-6.046c22.544,-1.525 41.868,-19.958 53.943,-39.951c10.395,-17.209 16.009,-37.307 15.97,-57.416c0,0 1.194,-6.35 6.315,-5.939Z">
 				<path[fill:{color+"6"}] d="M158.398,9.675c2.861,0.379 4.711,3.359 5.355,5.196c11.828,33.724 19.076,71.133 11.367,103.758c-3.443,14.572 -11.655,28.753 -25.974,35.41c0,0 -3.024,1.256 -5.416,-0.125c-3.86,-2.229 -3.108,-8.17 1.729,-10.593c13.28,-6.775 18.837,-23.605 20.388,-37.071c3.441,-29.873 -3.079,-60.785 -13.22,-89.067c0,0 -0.699,-2.259 0.153,-4.181c0.94,-2.119 3.174,-3.416 5.618,-3.327Z">
-export tag Bird
+tag Bird
 	prop accent
 	prop eyes
 	prop skin
@@ -152,3 +158,15 @@ export tag Bird
 			<Crest color=accent>
 			<Head color=skin>
 			<Face color=skin accent=accent eyes=eyes >
+			
+# disabled for now
+export tag bird-view
+	css & 
+		d:flex 
+		jc:center 
+		ai:center 
+		min-height: 200px 
+		bg:indigo1
+	def render
+		<self>
+			<Bird[$size:10px @sm:14px] accent="{birdcolors[birdcolor]}" skin="{birdcolors[birdcolor]}" eyes="cooler">
