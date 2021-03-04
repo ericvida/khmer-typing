@@ -480,14 +480,15 @@ export const data_keys = [
 	khmer: ['fn', 'fn']
 	size: 'square'
 	type: 'action'
-	hand: 'lef'
+	hand: 'both'
 	finger: 'first'
 	status: 'disabled'
 	---
 	name: 'left-control'
-	english: ['control', 'control']
+	english: ['ctrl', 'ctrl']
 	khmer: ['ctrl', 'ctrl']
 	size: 'square'
+	hand: 'both'
 	type: 'action'
 	finger: 'first'
 	status: 'disabled'
@@ -496,14 +497,16 @@ export const data_keys = [
 	english: ['alt', 'alt']
 	khmer: ['ជំនួស', 'ជំនួស']
 	size: 'square'
+	hand: 'both'
 	type: 'action'
 	finger: 'fifth'
 	status: 'enabled'
 	---
 	name: 'left-command'
-	english: ['command', 'command']
+	english: ['cmd', 'cmd']
 	khmer: ['cmd', 'cmd']
 	size: 'long'
+	hand: 'both'
 	type: 'action'
 	finger: 'fifth'
 	status: 'disabled'
@@ -522,7 +525,7 @@ export const data_keys = [
 	khmer: ['cmd', 'cmd']
 	size: 'long'
 	type: 'action'
-	hand: 'right'
+	hand: 'both'
 	finger: 'sixth'	
 	status: 'disabled'
 	---
@@ -531,7 +534,7 @@ export const data_keys = [
 	khmer: ['ជំនួស', 'ជំនួស']
 	size: 'square'
 	type: 'action'
-	hand: 'right'
+	hand: 'both'
 	finger: 'sixth'
 	status: 'enabled'
 	---
@@ -549,7 +552,7 @@ export const data_keys = [
 	khmer: ['◀︎', '◀︎']
 	size: 'square'
 	type: 'action'
-	hand: 'right'
+	hand: 'both'
 	finger: 'seventh'
 	status: 'disabled'
 	---
@@ -558,7 +561,7 @@ export const data_keys = [
 	khmer: ['▲', '▼']
 	size: 'square'
 	type: 'action'
-	hand: 'right'
+	hand: 'both'
 	finger: 'eighth'
 	status: 'disabled'
 	---
@@ -567,7 +570,7 @@ export const data_keys = [
 	khmer: ['▶︎', '▶︎']
 	size: 'square'
 	type: 'action'
-	hand: 'right'
+	hand: 'both'
 	finger: 'ninth'
 	status: 'disabled'
 ]

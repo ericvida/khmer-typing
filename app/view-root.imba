@@ -2,7 +2,7 @@ import 'imba/preflight.css'
 import './global-styles.imba'
 import './view-levels'
 import './view-scores'
-import './view-challenges'
+import './view-challenge'
 import './view-keyboard'
 import './view-settings'
 # import {Bird} from './view-bird'
@@ -23,16 +23,15 @@ tag view-root
 			<section[]>
 				<view-levels data=state>
 			<section>
-				css flex: 1 0  d:flex fld:column
-				<view-scores[fl:0 1 100px] data=state>
+				css flex: 1 0  d:flex fld:column jc:flex-start bg:cooler9
+				<view-scores data=state>
+				<view-challenge data=state>
 				# <bird-view[fl: 1 0 of:hidden]>
-				<view-challenges[fl: 1 0 bg:cooler9 jc:center d:flex ai:center] data=state>
-			<section>
-				css d:flex py:4 jc:center bg:cooler9 
-				<view-keyboard data=state>
+				<section>
+					css d:flex jc:center ai:start
+					<view-keyboard data=state>
 			<section>
 				css fl:1 bg:cooler9
-			<section>
 				<view-settings data=state>
 	
 

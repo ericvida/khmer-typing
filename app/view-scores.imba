@@ -1,15 +1,29 @@
 # Typing Score
-# TODO: Make Score part of state
+### TODOS ✅
+TODO: Make Score part of state
+TODO: Calculate words per minute 
+- convert from from characters per minute 
+- start calculating when player starts typing a new challenge
+- stop calculating when challenge is complete.
+TODO: Calculate Accuracy
+- errors from length of string percentage
+TODO: Calculate Mistakes
+- Counter for errors
+TODO: Unlock next level when passed
+- 100% accuracy to pass
+- 0 mistakes to pass
+- 
+###
 export tag view-scores
 	def render
-		<self[]> 
+		<self> 
 			<.wpm> 
 				<span> data.score_wpm
 				if data.ui_language is "english"
 					" Words Per Minute"
 				if data.ui_language is "khmer"
 					" ពាក្យក្នុងមួយនាទី"
-			<.acc> 
+			<.accuracy> 
 				<span.warning> data.score_accuracy + "%"
 				if data.ui_language is "english"
 					" Accuracy"
@@ -22,13 +36,17 @@ export tag view-scores
 				if data.ui_language is "khmer"
 					" កំហុស"
 					
-	css bg:cooler9 d:flex jc:space-evenly
+	css &
+		bg:cooler9
+		d:flex 
+		jc:space-evenly
 		c:cooler1
-		div fs:.6rem d:flex ai:center
-		span fs:3rem mr:.2rem fw:bold c:lime6
-			&.alert
-				c:yellow5
-			&.warning
-				c:orange5
-			&.danger
-				c:rose5
+		fl:0 1 4rem
+	css div fs:.9rem d:flex ai:center
+	css span fs:2rem mr:.5rem fw:bold c:lime6
+		&.alert
+			c:yellow5
+		&.warning
+			c:orange5
+		&.danger
+			c:rose5

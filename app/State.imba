@@ -55,7 +55,7 @@ export class State
 	keyboard_hints = yes
 	
 	# Challenge Settings
-	challenge_font = 'handwritten'
+	challenge_font = 'freehand'
 	
 	# Challenge Data
 	challenges = khmer_challenges
@@ -84,7 +84,8 @@ export class State
 		keyboard_language = getCookie('keyboard_language') || keyboard_language
 		level_unlocked = getCookie('level_unlocked') || level_unlocked
 		level_chosen = getCookie('level_chosen') || level_chosen
-		keyboard_colored = !(getCookie('colored') == 'false')
+		keyboard_colored = !(getCookie('keyboard_colored') == 'false')
+		keyboard_hints = !(getCookie('keyboard_hints') == 'false')
 		challenge_font = getCookie('challenge_font') || challenge_font
 		pressed_keys = []
 

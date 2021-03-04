@@ -1,6 +1,8 @@
 # Level Tracker
-# TODO: maybe add locked, chosen, unlocked classes dynamically, so they can animate.
-
+### TODOS: ✅
+TODO: maybe add locked, chosen, unlocked classes dynamically, so they can animate.
+TODO: Make levels persistent after click. Currently it defaults to level 1 on refresh.
+###
 export tag view-levels
 	def levelText num
 		if num is data.level_unlocked
@@ -30,33 +32,31 @@ export tag view-levels
 						<div.level-button.unlocked @click.setLevel(i)> i + 1
 	css
 		d:block 
-		h:30px
-		bg:cooler7
+		bg:cooler9
 	css .wrapper 
-		pos:relative 
-		w:100% h:30px 
+		w:100%
 		d:flex jc:space-evenly
 		bxs:sm,md,lg
+		py:.4rem
+		px:.4rem
 	css .level-button 
 		w:100% 
 		ta:center 
 		tween:all .5s lh:30px
 		pt:.05rem
-		bdr:100% solid red
+		rd:.2rem
+		mr:.3rem
+		bdb:.4rem solid cooler8/20
 		&.locked
 			cursor:not-allowed
 			c:cooler9
 			@even
 				bg:cooler6
-				bdr:.5rem solid cooler8
 			@odd
 				bg:cooler7
-				bdr:.5rem solid cooler8
 		&.unlocked 
-			bg:yellow4 @odd:yellow3 @hover:yellow2
+			bg:teal4 @odd:teal5 @hover:teal3
 			cursor:pointer
-			bdr:.5rem solid yellow5
 		&.chosen 
-			bg:lime5 @hover:lime4
-			bdr:.5rem solid lime6
+			bg:lime4 @odd:lime5 @hover:lime3
 			cursor:pointer

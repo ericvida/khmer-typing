@@ -7,12 +7,22 @@ export tag view-settings
 	def toggleColored
 		data.keyboard_colored = !data.keyboard_colored
 		data.setCookie('keyboard_colored', data.keyboard_colored)
+	def toggleHints
+		data.keyboard_hints = !data.keyboard_hints
+		data.setCookie('keyboard_hints', data.keyboard_hints)
 	def setChallengeFont font
 		data.challenge_font = font
 		data.setCookie('challenge_font', data.challenge_font)
 	def render
 		<self>
 			<p> # TODO: not sure why, but won't render without adding element here
+			<div>
+				<input bind=data.keyboard_hints #hints type="checkbox" name="keylang" @input=toggleColored> 
+				<label for="hints" name="keyboardhints"> 
+					if data.ui_language is "english"
+						" Hints"
+					if data.ui_language is "khmer"
+						" ព័ត៌មានជំនួយ"
 			<div>
 				<input bind=data.keyboard_colored #colorkeys type="checkbox" name="keylang" @input=toggleColored> 
 				<label for="colorkeys" name="keylang"> 
@@ -40,9 +50,9 @@ export tag view-settings
 						" ភាសាកម្មវិធី"
 			<div>
 				<select bind=data.challenge_font>
-					<option @click=setChallengeFont("handwritten") value="handwritten"> "Handwritten"
+					<option @click=setChallengeFont("freehand") value="freehand"> "Handwritten"
 					<option @click=setChallengeFont("modern") value="modern"> "Modern"
-					<option @click=setChallengeFont("script") value="script"> "Script"
+					<option @click=setChallengeFont("formal") value="formal"> "Formal"
 				<label> 
 					if data.ui_language is "english"
 						" Khmer Font"

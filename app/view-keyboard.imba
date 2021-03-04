@@ -1,15 +1,17 @@
 import {data_keys} from './data_keys'
-### TODOS:
+### TODOS: ✅
 — ✅ pressed state not working in khmer keyboard language
 — ✅ space press is not shown
 — Space does not show pressed state
 — ✅ When Shift + character is pressed, and character is released, the keyboard returns to lowercase even if you are still holding shift
-— Delete does not show pressed state
+— ✅ Delete does not show pressed state
 - Make English Font style match Khmer Font Style CHoices
 - Make width of dot match width of space
-- Highlight for current letter on keyboard if hint state is true.
+- apply .highlight class to current letter on keyboard if hint state is true.
 - allow backspace to remove typo
 - require character's per minute goal
+- If challenge is in khmer make english keyboard output khmer also so that it matches.
+- if challenge is in english, then make khmer keyboard output english letters also.
 ###
 ###
 — Change Delete to backspace
@@ -51,6 +53,9 @@ export tag view-keyboard
 	# ========================
 	# STYLES
 	# ========================			
+	css @keyframes hint
+		0% bg:cooler4
+		100% bg:cooler1
 	css &
 		$radius:0.3rem
 		$key-shadow:sm, md, md, lg
@@ -60,6 +65,8 @@ export tag view-keyboard
 		bg:cooler8
 		bxs:sm,md,md,xl
 		.first bg:rose5
+			&.highlight
+				animation: hint .5s infinite alternate
 		.second bg:pink5
 		.third bg:violet5
 		.fourth bg:blue5
@@ -135,8 +142,7 @@ export tag view-keyboard
 				jc:right
 			&.both span.normal-preview
 				jc:center
-		&.name-right-arrow span,	&.name-left-arrow span
-			ta:center
+		
 	# Keys with touch anchor for index finger
 	css .name-f, .name-j
 		pos:relative
@@ -148,8 +154,7 @@ export tag view-keyboard
 			ta:center
 			c:blue9
 			h:100%
-	css .name-left-arrow
-		d: flex ai:center jc: center
+	
 	css .name-up-down-wrapper
 		rd:$radius
 		d:grid
@@ -178,7 +183,6 @@ export tag view-keyboard
 			bxs:inset 0 -.25rem 0 -.10rem gray9/50, sm, md, md, lg
 			&.disabled
 				bg:cooler6 @hover:cooler6
-
+	
 	css .name-spacebar 
 		grid-column: span 8
-	
