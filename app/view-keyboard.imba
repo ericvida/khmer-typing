@@ -1,8 +1,8 @@
 import {data_keys} from './data_keys'
 ### TODOS:
-— pressed state not working in khmer keyboard language
-— space press is not showin
-— When Shift + character is pressed, and character is released, the keyboard returns to lowercase even if you are still holding shift
+— ✅ pressed state not working in khmer keyboard language
+— ✅ space press is not shown
+— ✅ When Shift + character is pressed, and character is released, the keyboard returns to lowercase even if you are still holding shift
 — Delete does not show pressed state
 — Space does not show pressed state
 ###
@@ -21,9 +21,7 @@ export tag view-keyboard
 			unless pressed_keys.indexOf(e.key.toLowerCase!) > -1
 				pressed_keys.push(e.key.toLowerCase!)
 
-			# TODO
-			# if 
-			log e
+			log pressed_keys
 
 			imba.commit!
 
@@ -31,22 +29,30 @@ export tag view-keyboard
 		document.onkeyup = do(e)
 			e.preventDefault!
 			e.stopPropagation!
-			unshiftChar!
 			pressed_keys.splice(pressed_keys.indexOf(e.key.toLowerCase!), 1)
+
+			# if e.shiftKey || e.key == 'Shift'
+			if pressed_keys.indexOf('shift') < 0
+				unshiftChar!
+
 			imba.commit!
+
 	def shiftChar
 		if data.shift_pressed is 0
 			data.shift_pressed = 1
 			imba.commit!
+
 	def unshiftChar
 		if data.shift_pressed > 0
 			data.shift_pressed = 0
 			imba.commit!
+
 	def pressed key
 		if pressed_keys.indexOf(key) > -1
 			return yes
 		else
 			return no
+
 	def render
 		<self>
 			<.board>

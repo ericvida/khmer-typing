@@ -509,7 +509,7 @@ export const data_keys = [
 	status: 'disabled'
 	---
 	name: 'spacebar'
-	english: ['space', 'space']
+	english: [' ', ' ']
 	khmer: ['space', 'space']
 	size: 'spacebar'
 	type: 'action'
