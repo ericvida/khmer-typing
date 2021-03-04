@@ -1,4 +1,8 @@
 # Type Challenge
+###
+TODO: consonant vowel pairs in khmer are joined into one character.
+We need to make the character highlighting stay visible.
+###
 export tag view-challenges
 	def fontFamily
 		switch data.challenge_font

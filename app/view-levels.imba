@@ -10,21 +10,24 @@ export tag view-levels
 	def isUnlocked num
 		if num <= data.level_unlocked
 			return true
+	def setLevel lvl
+		console.log lvl
+		data.setLevel(lvl)
 	def render
 		<self>
 			<.wrapper>
-				<div.level-button.chosen[px:2]> 
+				<div.level-button.chosen[px:2 cursor:default us:none]> 
 					if data.ui_language is "english"
 						"level"
 					if data.ui_language is "khmer"
 						"កម្រិត"
 				for item,i in [0 ... data.level_count]
 					if i > data.level_unlocked
-						<div.level-button.locked> i + 1
-					elif i is data.level_chosen
-						<div.level-button.chosen> i + 1
+						<div.level-button.locked @click.setLevel(i)> i + 1
+					elif i <= data.level_chosen
+						<div.level-button.chosen @click.setLevel(i)> i + 1
 					elif i <= data.level_unlocked
-						<div.level-button.unlocked> i + 1
+						<div.level-button.unlocked @click.setLevel(i)> i + 1
 	css
 		d:block 
 		h:30px
@@ -38,22 +41,22 @@ export tag view-levels
 		w:100% 
 		ta:center 
 		tween:all .5s lh:30px
-		pt:.05em
+		pt:.05rem
 		bdr:100% solid red
 		&.locked
 			cursor:not-allowed
 			c:cooler9
 			@even
 				bg:cooler6
-				bdr:.5em solid cooler8
+				bdr:.5rem solid cooler8
 			@odd
 				bg:cooler7
-				bdr:.5em solid cooler8
+				bdr:.5rem solid cooler8
 		&.unlocked 
 			bg:yellow4 @odd:yellow3 @hover:yellow2
 			cursor:pointer
-			bdr:.5em solid yellow5
+			bdr:.5rem solid yellow5
 		&.chosen 
 			bg:lime5 @hover:lime4
-			bdr:.5em solid lime6
+			bdr:.5rem solid lime6
 			cursor:pointer

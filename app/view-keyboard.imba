@@ -52,127 +52,133 @@ export tag view-keyboard
 	# STYLES
 	# ========================			
 	css &
-		p:10px rd:md d:inline-block bg:cooler8 bxs:sm,md,md,xl
-		.first bg: rose5
-		.second bg: pink5
-		.third bg: violet5
-		.fourth bg: blue5
-		.fifth bg: yellow3 
-		.sixth bg: yellow3 
-		.seventh bg: teal5
-		.eighth bg: lime5
-		.ninth bg: amber5
-		.tenth bg: orange5
+		$radius:0.3rem
+		$key-shadow:sm, md, md, lg
+		p:.5rem
+		rd:md 
+		d:inline-block 
+		bg:cooler8
+		bxs:sm,md,md,xl
+		.first bg:rose5
+		.second bg:pink5
+		.third bg:violet5
+		.fourth bg:blue5
+		.fifth bg:yellow3 
+		.sixth bg:yellow3 
+		.seventh bg:teal5
+		.eighth bg:lime5
+		.ninth bg:amber5
+		.tenth bg:orange5
+		bd:1px solid gray7/50
 
 	css .board
-		fs: 1em
-		d: grid jc:center
-		gtc: repeat(30, 1em)
-		grid-gap: .5em
+		fs:1em
+		d:grid jc:center
+		gtc: repeat(30, 1rem)
+		grid-gap:.5rem
 	css .square
-		$aspect-ratio: 1/1
-		grid-column: span 2
-		pt: calc(100% + -.2em)
+		$aspect-ratio:1/1
+		grid-column:span 2
+		h:2.5rem
 		&.pressed
-			pt: calc(100% + -.4em)
+			h:2.4rem
+			transform:translateY(.1rem)
+			bxs:inset 0 0 0 0 gray9/50, sm, md, md, lg
 	css .long
-		grid-column: span 3
+		grid-column:span 3
 	css .longer
-		grid-column: span 4
+		grid-column:span 4
 	css .longest
-		grid-column: span 5
-	css .key 
-		rd: .3em
-		pos: relative
+		grid-column:span 5
+	css .key
+		rd:$radius
+		pos:relative
 		us:none
 		tween: all .2ms easy-ease
-		transform: translateY(-0.2em)
-		bxs:sm, md, lg @hover:sm, md, lg
 		bg:cooler3 @hover:cooler1
-		bdb:0.2em solid cooler9/50
+		bxs:inset 0 -.25rem 0 -.10rem gray9/50, sm, md, md, lg
 		span
-			pos: absolute
-			px:.6em
+			pos:absolute
 			w:100% h:100%
 			d:flex
 		span.shift-preview
+			h:1rem
+			lh:100%
+			px:.2rem
+			py:.15rem
 			l:0%
 			t:0% 
-			c:gray9/40
+			fs:.7rem
+			c:gray9/60
 		span.normal-preview
 			w:100% h:100%
 			ai:center jc:center
-			fs: 1em
+			fs:1.1rem
 			t:0%
 			r:0% ta:center
 		&.disabled, & .half-key.disabled
 			bxs:lg
 			bg:cooler6 @hover:cooler6
 		&.pressed:not(.disabled)
-			bxs:sm, md, lg
+			bxs:sm,md,md,lg
 			bg:cooler1
-			bdb: 0em
-			transform: translateY(-0.2em)
+			bdb:0rem
 		&.action, &.spacebar
 			d:flex
+			bxs:inset 0 -.25rem 0 -.10rem gray9/50, sm, md, md, lg
 			span
-				fs:.7em
+				px:.4rem
+				fs:.7rem
 			&.left span.normal-preview
-				jc: left
+				jc:left
 			&.right span.normal-preview
-				jc: right
+				jc:right
 			&.both span.normal-preview
 				jc:center
-		span ta:center of:hidden fs:.5em
-		&.left span ta:left
-		&.right span ta:right
 		&.name-right-arrow span,	&.name-left-arrow span
 			ta:center
+	# Keys with touch anchor for index finger
 	css .name-f, .name-j
-		pos: relative
+		pos:relative
 		@before
-			content: '—'
-			pos: absolute
+			content:'—'
+			d:flex jc:center
+			lh:.5rem
+			ai:flex-end
 			ta:center
 			c:blue9
-			l: 0
-			r: 0
-			b: -.5em
+			h:100%
 	css .name-left-arrow
 		d: flex ai:center jc: center
 	css .name-up-down-wrapper
-		rd: .3em
+		rd:$radius
 		d:grid
-		pos: relative
+		pos:relative
 		us:none
 		span
-			pos: absolute
-			l: 50% transform:translateX(-50%)
+			pos:absolute
+			ta:center w:100%
+			fs:.7rem
 		&.disabled
 			bxs:lg
 			bg:cooler6 @hover:cooler6
 			transform:none
 	css .name-up-down-arrows
-		rd: .3em
+		rd:$radius
 		d:grid
-		pos: absolute
-		bg: transparent
+		pos:absolute
 		t:0 r:0 b:0 l:0
 		d:flex jc:space-between fld:column
 		bxs:none @hover:none
 		.half-key
 			grid-column: span 2
-			ta:center
-			d:flex rd:lg h:45% ai:center
-			w:100% jc: space-between
+			d:flex rd:$radius h:45% ai:center
+			w:100%
 			us:none
-			bxs@hover:outline
-			transform@active: translateY(.1em)
-			bxs:sm, md, lg @hover:sm, md, lg
-			&.disabled	
-				bxs:lg
+			bxs:inset 0 -.25rem 0 -.10rem gray9/50, sm, md, md, lg
+			&.disabled
 				bg:cooler6 @hover:cooler6
-				transform:none
+
 	css .name-spacebar 
 		grid-column: span 8
 	

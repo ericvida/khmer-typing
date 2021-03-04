@@ -34,7 +34,7 @@ tag view-root
 				css fl:1 bg:cooler9
 			<section>
 				<view-settings data=state>
-	css & fs:.4em @xs:.5em @sm:.6em @md: .8em @lg: 1.2em @xl: 1.4em
+	
 
 				
 imba.mount <view-root>

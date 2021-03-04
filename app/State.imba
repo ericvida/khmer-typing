@@ -82,6 +82,8 @@ export class State
 	def constructor
 		ui_language = getCookie('ui_language') || ui_language
 		keyboard_language = getCookie('keyboard_language') || keyboard_language
+		level_unlocked = getCookie('level_unlocked') || level_unlocked
+		level_chosen = getCookie('level_chosen') || level_chosen
 		keyboard_colored = !(getCookie('colored') == 'false')
 		challenge_font = getCookie('challenge_font') || challenge_font
 		pressed_keys = []
@@ -128,7 +130,7 @@ export class State
 			imba.commit!
 
 
-
+			
 	def shiftChar
 		if shift_pressed is 0
 			shift_pressed = 1
@@ -138,6 +140,10 @@ export class State
 		if shift_pressed > 0
 			shift_pressed = 0
 			imba.commit!
+	
+	def setLevel level
+		if level !== level_chosen and level <= level_unlocked
+			level_chosen = level
 
 	def setChallengeFont language
 		setCookie('challenge_font', challenge_font)

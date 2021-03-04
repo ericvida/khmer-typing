@@ -24,8 +24,8 @@ export tag view-scores
 					
 	css bg:cooler9 d:flex jc:space-evenly
 		c:cooler1
-		div fs:.6em d:flex ai:center
-		span fs:3em mr:.2em fw:bold c:lime6
+		div fs:.6rem d:flex ai:center
+		span fs:3rem mr:.2rem fw:bold c:lime6
 			&.alert
 				c:yellow5
 			&.warning
