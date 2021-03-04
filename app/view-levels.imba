@@ -20,11 +20,11 @@ export tag view-levels
 						"កម្រិត"
 				for item,i in [0 ... data.level_count]
 					if i > data.level_unlocked
-						<div.level-button.locked> i
+						<div.level-button.locked> i + 1
 					elif i is data.level_chosen
-						<div.level-button.chosen> i
+						<div.level-button.chosen> i + 1
 					elif i <= data.level_unlocked
-						<div.level-button.unlocked> i
+						<div.level-button.unlocked> i + 1
 	css
 		d:block 
 		h:30px
@@ -33,6 +33,7 @@ export tag view-levels
 		pos:relative 
 		w:100% h:30px 
 		d:flex jc:space-evenly
+		bxs:sm,md,lg
 	css .level-button 
 		w:100% 
 		ta:center 
@@ -44,11 +45,15 @@ export tag view-levels
 			c:cooler9
 			@even
 				bg:cooler6
+				bdr:.5em solid cooler8
 			@odd
 				bg:cooler7
+				bdr:.5em solid cooler8
 		&.unlocked 
-			bg:lime4 @odd:lime3 @hover:lime2
+			bg:yellow4 @odd:yellow3 @hover:yellow2
 			cursor:pointer
+			bdr:.5em solid yellow5
 		&.chosen 
 			bg:lime5 @hover:lime4
+			bdr:.5em solid lime6
 			cursor:pointer

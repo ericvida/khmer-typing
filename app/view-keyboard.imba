@@ -4,7 +4,12 @@ import {data_keys} from './data_keys'
 — ✅ space press is not shown
 — Space does not show pressed state
 — ✅ When Shift + character is pressed, and character is released, the keyboard returns to lowercase even if you are still holding shift
-# — Delete does not show pressed state
+— Delete does not show pressed state
+- Make English Font style match Khmer Font Style CHoices
+- Make width of dot match width of space
+- Highlight for current letter on keyboard if hint state is true.
+- allow backspace to remove typo
+- require character's per minute goal
 ###
 ###
 — Change Delete to backspace
@@ -30,14 +35,18 @@ export tag view-keyboard
 								<.half-key .{key.status} .{key.finger} .{key.type} .{key.hand}> <span> key.english[0]
 								<.half-key .{key.status} .{key.finger} .{key.type} .{key.hand}> <span> key.english[1]
 					else
-						<.key .{key.status} .{key.finger}=data.keyboard_colored .{key.type} .{key.size} .name-{key.name} .{key.hand} .pressed=(pressed(key.english[0]) || pressed(key.english[1]))>
+						<.key.highlight .{key.status} .{key.finger}=data.keyboard_colored .{key.type} .{key.size} .name-{key.name} .{key.hand} .pressed=(pressed(key.english[0]) || pressed(key.english[1]))>
 							if key.type isnt "action"
 								<span.shift-preview>
 									if data.shift_pressed is 1
 										key["{data.keyboard_language}"][0]
 									else
 										key["{data.keyboard_language}"][1]
-							<span.normal-preview> key["{data.keyboard_language}"][data.shift_pressed]
+							<span.normal-preview> 
+								if key.name is 'spacebar'
+									"spacebar"
+								else
+									key["{data.keyboard_language}"][data.shift_pressed]
 	
 	# ========================
 	# STYLES
@@ -54,6 +63,7 @@ export tag view-keyboard
 		.eighth bg: lime5
 		.ninth bg: amber5
 		.tenth bg: orange5
+
 	css .board
 		fs: 1em
 		d: grid jc:center
@@ -62,7 +72,9 @@ export tag view-keyboard
 	css .square
 		$aspect-ratio: 1/1
 		grid-column: span 2
-		pt: calc(100% / $aspect-ratio)
+		pt: calc(100% + -.2em)
+		&.pressed
+			pt: calc(100% + -.4em)
 	css .long
 		grid-column: span 3
 	css .longer
@@ -73,33 +85,44 @@ export tag view-keyboard
 		rd: .3em
 		pos: relative
 		us:none
-		transform@active: translateY(.1em)
-		bxs:sm, m d, lg @hover:sm, md, lg
+		tween: all .2ms easy-ease
+		transform: translateY(-0.2em)
+		bxs:sm, md, lg @hover:sm, md, lg
 		bg:cooler3 @hover:cooler1
+		bdb:0.2em solid cooler9/50
 		span
 			pos: absolute
-			px:.5em
+			px:.6em
 			w:100% h:100%
 			d:flex
 		span.shift-preview
 			l:0%
-			t:0% fs: .6em
+			t:0% 
 			c:gray9/40
 		span.normal-preview
 			w:100% h:100%
 			ai:center jc:center
+			fs: 1em
 			t:0%
 			r:0% ta:center
 		&.disabled, & .half-key.disabled
 			bxs:lg
 			bg:cooler6 @hover:cooler6
-			transform:none
 		&.pressed:not(.disabled)
-			transform: translateY(.1em)
 			bxs:sm, md, lg
 			bg:cooler1
-	css .action
-		d:flex jc:end
+			bdb: 0em
+			transform: translateY(-0.2em)
+		&.action, &.spacebar
+			d:flex
+			span
+				fs:.7em
+			&.left span.normal-preview
+				jc: left
+			&.right span.normal-preview
+				jc: right
+			&.both span.normal-preview
+				jc:center
 		span ta:center of:hidden fs:.5em
 		&.left span ta:left
 		&.right span ta:right
@@ -114,7 +137,7 @@ export tag view-keyboard
 			c:blue9
 			l: 0
 			r: 0
-			b: 0
+			b: -.5em
 	css .name-left-arrow
 		d: flex ai:center jc: center
 	css .name-up-down-wrapper

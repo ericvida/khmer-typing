@@ -52,12 +52,13 @@ export class State
 	ui_language = "english"
 	keyboard_language = 'english'
 	keyboard_colored = yes
+	keyboard_hints = yes
 	
 	# Challenge Settings
 	challenge_font = 'handwritten'
 	
 	# Challenge Data
-	challenges = english_challenges
+	challenges = khmer_challenges
 	challenge_string = ''
 	challenge_character = 0
 	

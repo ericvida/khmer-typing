@@ -7,7 +7,7 @@ import './view-keyboard'
 import './view-settings'
 # import {Bird} from './view-bird'
 
-import {State} from './classState'
+import {State} from './State'
 
 let state = new State()
 

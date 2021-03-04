@@ -510,7 +510,7 @@ export const data_keys = [
 	---
 	name: 'spacebar'
 	english: [' ', ' ']
-	khmer: ['space', 'space']
+	khmer: [' ', ' ']
 	size: 'spacebar'
 	type: 'char'
 	hand: 'both'
@@ -518,7 +518,7 @@ export const data_keys = [
 	status: 'enabled'
 	---
 	name: 'right-command'
-	english: ['command', 'command']
+	english: ['cmd', 'cmd']
 	khmer: ['cmd', 'cmd']
 	size: 'long'
 	type: 'action'
@@ -536,8 +536,8 @@ export const data_keys = [
 	status: 'enabled'
 	---
 	name: 'right-control'
-	english: ['control', 'control']
-	khmer: ['control', 'control']
+	english: ['ctrl', 'ctrl']
+	khmer: ['ctrl', 'ctrl']
 	size: 'square'
 	type: 'action'
 	hand: 'right'
