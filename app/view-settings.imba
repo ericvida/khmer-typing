@@ -1,6 +1,9 @@
 export tag view-settings
 	def setLanguage language
 		data.setUILanguage language
+	def setKeyboardLanguage language
+		data.keyboard_language = language
+		data.setCookie('keyboard_language', data.keyboard_language)
 	def toggleColored
 		data.keyboard_colored = !data.keyboard_colored
 		data.setCookie('keyboard_colored', data.keyboard_colored)
