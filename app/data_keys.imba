@@ -9,7 +9,7 @@ export const data_keys = [
 	status: 'enabled'
 	---
 	name: 'one'
-	english: ['1', '!' ]
+	english: ['1', '!']
 	khmer: ['១', '!']
 	size: 'square'
 	type: 'char'
@@ -115,9 +115,9 @@ export const data_keys = [
 	finger: 'tenth'
 	status: 'enabled'
 	---
-	name: 'delete'
-	english: ['delete', 'delete']
-	khmer: ['delete', 'delete']
+	name: 'backspace'
+	english: ['backspace', 'backspace']
+	khmer: ['backspace', 'backspace']
 	size: 'longer'
 	type: 'action'
 	hand: 'right'
@@ -512,7 +512,7 @@ export const data_keys = [
 	english: [' ', ' ']
 	khmer: ['space', 'space']
 	size: 'spacebar'
-	type: 'action'
+	type: 'char'
 	hand: 'both'
 	finger: 'fifth'
 	status: 'enabled'

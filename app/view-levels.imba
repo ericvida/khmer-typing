@@ -11,8 +11,7 @@ export tag view-levels
 		if num <= data.level_unlocked
 			return true
 	def render
-		<self.self>
-			console.log data
+		<self>
 			<.wrapper>
 				<div.level-button.chosen[px:2]> 
 					if data.ui_language is "english"
@@ -26,7 +25,7 @@ export tag view-levels
 						<div.level-button.chosen> i
 					elif i <= data.level_unlocked
 						<div.level-button.unlocked> i
-	css .self 
+	css
 		d:block 
 		h:30px
 		bg:cooler7

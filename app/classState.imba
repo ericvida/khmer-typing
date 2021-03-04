@@ -1,5 +1,21 @@
-import {data_challenges} from './data_challenges'
-### Available objects
+import {khmer_challenges, english_challenges} from './data_challenges'
+import {data_keys} from './data_keys'
+
+for challange, index in khmer_challenges
+	khmer_challenges[index] = challange.split('').map(do(character) return {
+		char: character
+	})
+
+for challange, index in english_challenges
+	english_challenges[index] = challange.split('').map(do(character) return {
+		char: character
+	})
+
+
+console.log khmer_challenges, english_challenges
+
+
+### Available objects'
 # Level Data
 state.level_count
 state.level_unlocked
@@ -41,14 +57,14 @@ export class State
 	challenge_font = 'handwritten'
 	
 	# Challenge Data
-	khmer_challenges = data_challenges
+	challenges = english_challenges
 	challenge_string = ''
-	challenge_character = ''
+	challenge_character = 0
 	
 	# Level Data
 	level_count = 20
 	level_unlocked = 4
-	level_chosen = 2
+	level_chosen = 0
 	
 	# Score State
 	score_wpm = 0
@@ -58,13 +74,70 @@ export class State
 	# Keyboard states
 	shift_pressed = 0
 	alt_pressed = 0
+
+	pressed_keys = []
+
 	
 	def constructor
 		ui_language = getCookie('ui_language') || ui_language
 		keyboard_language = getCookie('keyboard_language') || keyboard_language
 		keyboard_colored = !(getCookie('colored') == 'false')
 		challenge_font = getCookie('challenge_font') || challenge_font
-		
+		pressed_keys = []
+
+
+		document.onkeydown = do(e)
+			e = e || window.event
+			e.preventDefault!
+			e.stopPropagation!
+
+			if e.shiftKey || e.key == 'Shift'
+				shiftChar!
+
+			unless pressed_keys.indexOf(e.key.toLowerCase!) > -1
+				pressed_keys.push(e.key.toLowerCase!)
+
+			# console.log e
+			const key = data_keys.find(do(el) return el.english.indexOf(e.key) > -1)
+			if key
+				if key.type == 'char'
+					console.log key["{keyboard_language}"][shift_pressed]
+					challenges[level_chosen][challenge_character].correct = key["{keyboard_language}"][shift_pressed] == challenges[level_chosen][challenge_character].char
+
+					if !challenges[level_chosen][challenge_character].correct and challenges[level_chosen][challenge_character].char == ' '
+						challenges[level_chosen][challenge_character].char = '·'
+
+
+					if challenge_character < challenges[level_chosen].length
+						challenge_character++
+
+			imba.commit!
+
+
+
+
+		document.onkeyup = do(e)
+			e.preventDefault!
+			e.stopPropagation!
+			pressed_keys.splice(pressed_keys.indexOf(e.key.toLowerCase!), 1)
+
+			if pressed_keys.indexOf('shift') < 0
+				unshiftChar!
+
+			imba.commit!
+
+
+
+	def shiftChar
+		if shift_pressed is 0
+			shift_pressed = 1
+			imba.commit!
+
+	def unshiftChar
+		if shift_pressed > 0
+			shift_pressed = 0
+			imba.commit!
+
 	def setChallengeFont language
 		setCookie('challenge_font', challenge_font)
 		challenge_font = language

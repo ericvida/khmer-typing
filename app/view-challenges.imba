@@ -8,17 +8,18 @@ export tag view-challenges
 	def render
 		<self [ff:{fontFamily!}]>
 			<div>
-				for item, i of data.khmer_challenges[data.level_unlocked]
+				for item, i of data.challenges[data.level_chosen]
 					if i is data.challenge_character
-						<span .current> "{item}"
+						<span .current> "{item.char}"
+
 					elif i <= data.challenge_character
-						<span .correct> "{item}"
-						# <span .wrong> "{item}"
+						<span .wrong=!item.correct .correct=item.correct> "{item.char}"
+
 					else
-						<span> "{item}"
+						<span> "{item.char}"
 	css fs:2em
 	css span c:cooler1
 		fs:.4em @xs: .5em @sm: .6em @md: .8em @lg: 1em
-	css .correct c:cooler7
-	css .wrong c:rose5/30
+	css .correct c:cooler6
+	css .wrong c:rose5
 	css .current c:lime5  bdb:1px solid lime5

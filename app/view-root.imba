@@ -1,6 +1,5 @@
 import 'imba/preflight.css'
 import './global-styles.imba'
-import {data_challenges} from './data_challenges'
 import './view-levels'
 import './view-scores'
 import './view-challenges'

@@ -2,53 +2,18 @@ import {data_keys} from './data_keys'
 ### TODOS:
 — ✅ pressed state not working in khmer keyboard language
 — ✅ space press is not shown
-— ✅ When Shift + character is pressed, and character is released, the keyboard returns to lowercase even if you are still holding shift
-— Delete does not show pressed state
 — Space does not show pressed state
+— ✅ When Shift + character is pressed, and character is released, the keyboard returns to lowercase even if you are still holding shift
+# — Delete does not show pressed state
+###
+###
+— Change Delete to backspace
 ###
 export tag view-keyboard
-	pressed_keys = []
 	letter_index = 0
-	def mount
-		document.onkeydown = do(e)
-			e = e || window.event
-			e.preventDefault!
-			e.stopPropagation!
-
-			if e.shiftKey || e.key == 'Shift'
-				shiftChar!
-
-			unless pressed_keys.indexOf(e.key.toLowerCase!) > -1
-				pressed_keys.push(e.key.toLowerCase!)
-
-			log pressed_keys
-
-			imba.commit!
-
-
-		document.onkeyup = do(e)
-			e.preventDefault!
-			e.stopPropagation!
-			pressed_keys.splice(pressed_keys.indexOf(e.key.toLowerCase!), 1)
-
-			# if e.shiftKey || e.key == 'Shift'
-			if pressed_keys.indexOf('shift') < 0
-				unshiftChar!
-
-			imba.commit!
-
-	def shiftChar
-		if data.shift_pressed is 0
-			data.shift_pressed = 1
-			imba.commit!
-
-	def unshiftChar
-		if data.shift_pressed > 0
-			data.shift_pressed = 0
-			imba.commit!
 
 	def pressed key
-		if pressed_keys.indexOf(key) > -1
+		if data.pressed_keys.indexOf(key) > -1
 			return yes
 		else
 			return no
@@ -65,7 +30,7 @@ export tag view-keyboard
 								<.half-key .{key.status} .{key.finger} .{key.type} .{key.hand}> <span> key.english[0]
 								<.half-key .{key.status} .{key.finger} .{key.type} .{key.hand}> <span> key.english[1]
 					else
-						<.key .{key.status} .{key.finger}=data.keyboard_colored .{key.type} .{key.size} .name-{key.name} .{key.hand} .pressed=pressed(key.english[0])>
+						<.key .{key.status} .{key.finger}=data.keyboard_colored .{key.type} .{key.size} .name-{key.name} .{key.hand} .pressed=(pressed(key.english[0]) || pressed(key.english[1]))>
 							if key.type isnt "action"
 								<span.shift-preview>
 									if data.shift_pressed is 1
