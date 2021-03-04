@@ -7,32 +7,12 @@ import './view-challenges'
 import './view-keyboard'
 import './view-settings'
 # import {Bird} from './view-bird'
+
 import {State} from './classState'
-# score state.
-let score = 
-	wpm: 0
-	typos: 0
-	accuracy: 0
-
-let basic = yes
-
-# this stores the number of challenges available
-let levelsTotal = data_challenges.length
-
-# This is for highlighting the current letter in the typing challenge
-let currentLetter = 3
-
-# Current Level Change this number to typing challenge start with 1
-let levelReached = 0
-
-
-
-
 
 let state = new State()
 
 tag view-root
-	css fs:.4em @xs:.5em @sm:.6em @md: .8em @lg: 1.2em @xl: 1.4em
 	def toggled val
 		console.log val
 		val = !val
@@ -55,6 +35,6 @@ tag view-root
 				css fl:1 bg:cooler9
 			<section>
 				<view-settings data=state>
+	css & fs:.4em @xs:.5em @sm:.6em @md: .8em @lg: 1.2em @xl: 1.4em
 
 				
-imba.mount <view-root>

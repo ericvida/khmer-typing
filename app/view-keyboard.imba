@@ -10,8 +10,11 @@ export tag view-keyboard
 	pressed_keys = []
 	letter_index = 0
 	def mount
-		document.onkeydown = do |e|
+		document.onkeydown = do(e)
 			e = e || window.event
+			e.preventDefault!
+			e.stopPropagation!
+
 			if e.shiftKey || e.key == 'Shift'
 				shiftChar!
 
@@ -20,11 +23,14 @@ export tag view-keyboard
 
 			# TODO
 			# if 
+			log e
 
 			imba.commit!
 
 
-		document.onkeyup = do |e|
+		document.onkeyup = do(e)
+			e.preventDefault!
+			e.stopPropagation!
 			unshiftChar!
 			pressed_keys.splice(pressed_keys.indexOf(e.key.toLowerCase!), 1)
 			imba.commit!
@@ -53,9 +59,9 @@ export tag view-keyboard
 								<.half-key .{key.status} .{key.finger} .{key.type} .{key.hand}> <span> key.english[0]
 								<.half-key .{key.status} .{key.finger} .{key.type} .{key.hand}> <span> key.english[1]
 					else
-						<.key .{key.status} .{key.finger}=data.keyboard_colored .{key.type} .{key.size} .name-{key.name} .{key.hand} .pressed=pressed(key["{data.keyboard_language}"][0])>
+						<.key .{key.status} .{key.finger}=data.keyboard_colored .{key.type} .{key.size} .name-{key.name} .{key.hand} .pressed=pressed(key.english[0])>
 							if key.type isnt "action"
-								<span.shift-preview> 
+								<span.shift-preview>
 									if data.shift_pressed is 1
 										key["{data.keyboard_language}"][0]
 									else

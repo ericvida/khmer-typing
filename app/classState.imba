@@ -32,7 +32,6 @@ state.setChallengeFont('')
 ###
 
 export class State
-
 	# UI Settings
 	ui_language = "english"
 	keyboard_language = 'english'
@@ -73,7 +72,7 @@ export class State
 	def setUILanguage language
 		setCookie('ui_language', ui_language)
 		ui_language = language
-	
+
 	def setKeyboardLanguage language
 		setCookie('keyboard_language', keyboard_language)
 		keyboard_language = language
