@@ -12,7 +12,7 @@ for challange, index in english_challenges
 	})
 
 
-console.log khmer_challenges, english_challenges
+# console.log khmer_challenges, english_challenges
 
 
 ### Available objects'
@@ -66,7 +66,7 @@ export class State
 	level_count = 20
 	level_unlocked = 4
 	level_chosen = 0
-	lever_spm_threshold = 20
+	level_spm_threshold = 20
 	
 	# Score State
 	score_cpm = 0
@@ -79,7 +79,7 @@ export class State
 
 	pressed_keys = []
 
-	
+
 	def constructor
 		ui_language = getCookie('ui_language') || ui_language
 		keyboard_language = getCookie('keyboard_language') || keyboard_language
@@ -109,26 +109,28 @@ export class State
 			if key
 				if key.type == 'char'
 					# console.log key["{keyboard_language}"][shift_pressed]
-					challenges[level_chosen][challenge_character].correct = key["{keyboard_language}"][shift_pressed] == challenges[level_chosen][challenge_character].char
-
-					if !challenges[level_chosen][challenge_character].correct
-						if challenges[level_chosen][challenge_character].char == ' '
-							challenges[level_chosen][challenge_character].char = '·'
-						
-						score_mistakes++
-
-					if challenges[level_chosen][challenge_character].correct and not start_time
+					if key["{keyboard_language}"][shift_pressed] == challenges[level_chosen][challenge_character].char and not start_time
 						start_time = Date.now()
 
-					if challenge_character < challenges[level_chosen].length - 1
-						challenge_character++
-					
+
 					if start_time
+						challenges[level_chosen][challenge_character].correct = key["{keyboard_language}"][shift_pressed] == challenges[level_chosen][challenge_character].char
+
+						if !challenges[level_chosen][challenge_character].correct
+							if challenges[level_chosen][challenge_character].char == ' '
+								challenges[level_chosen][challenge_character].char = '·'
+							
+							score_mistakes++
+
+						if challenge_character < challenges[level_chosen].length - 1
+							challenge_character++
+						else
+							finishChallenge!
+							return
+					
 						const timespan = Date.now! - start_time
 						score_cpm = (challenge_character / timespan) * 60000
-
-					if challenge_character == challenges[level_chosen].length - 1
-						finishChallenge!
+						console.log score_cpm, challenge_character
 
 
 			imba.commit!
@@ -181,8 +183,8 @@ export class State
 
 	def finishChallenge
 		start_time = 0
-		if score_mistakes == 0 && level_unlocked == level_chosen && score_cpm >= lever_spm_threshold
-			level_unlocked ++
+		if score_mistakes == 0 && level_unlocked == level_chosen && score_cpm >= level_spm_threshold
+			level_unlocked++
 		
 
 	def setChallengeFont language
@@ -202,3 +204,4 @@ export class State
 
 	def setCookie c_name, value
 		window.localStorage.setItem(c_name, value)
+

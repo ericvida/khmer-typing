@@ -8,7 +8,7 @@ export const khmer_challenges = [
 ]
 
 export const english_challenges = [
-	'THAUO phhao f matter Lorem ipsum dolor sit amet'
+	'Matter of Lorem ipsum dolor sit amet'
 	'ឌ ដ ក ក ដ ក ដ ក ដ ដ ក ក ក ដ ក ដ'
 	'ស ល ស ល ល ស ស ល ស ស ល ល'
 	'ា ើ ើ ា ា ើ ើ ា ើ ា ើ ា ា ើ ា'

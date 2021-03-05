@@ -39,14 +39,15 @@ export tag view-keyboard
 					return yes
 		else
 			const khmer_char = data_keys.find(do(el) return el[data.keyboard_language].indexOf(char) > -1)
-			const index_of_khmer_char = khmer_char[data.keyboard_language].indexOf(char)
+			if khmer_char
+				const index_of_khmer_char = khmer_char[data.keyboard_language].indexOf(char)
 
-			if index_of_khmer_char == 1
-				if key.english[0] == 'shift'
-					return yes
-			elif index_of_khmer_char == 2
-				if key.english[0] == 'alt'
-					return yes
+				if index_of_khmer_char == 1
+					if key.english[0] == 'shift'
+						return yes
+				elif index_of_khmer_char == 2
+					if key.english[0] == 'alt'
+						return yes
 
 		return key[data.keyboard_language].indexOf(char) > -1
 
