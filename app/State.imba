@@ -58,7 +58,7 @@ export class State
 	challenge_font = 'freehand'
 	
 	# Challenge Data
-	challenges = khmer_challenges
+	challenges = english_challenges
 	challenge_string = ''
 	challenge_character = 0
 	
@@ -66,11 +66,12 @@ export class State
 	level_count = 20
 	level_unlocked = 4
 	level_chosen = 0
+	lever_spm_threshold = 20
 	
 	# Score State
-	score_wpm = 0
-	score_accuracy = 0
+	score_cpm = 0
 	score_mistakes = 0
+	start_time = 0
 	
 	# Keyboard states
 	shift_pressed = 0
@@ -97,6 +98,8 @@ export class State
 
 			if e.shiftKey || e.key == 'Shift'
 				shiftChar!
+			if e.altKey || e.key == 'Alt'
+				altChar!
 
 			unless pressed_keys.indexOf(e.key.toLowerCase!) > -1
 				pressed_keys.push(e.key.toLowerCase!)
@@ -105,15 +108,28 @@ export class State
 			const key = data_keys.find(do(el) return el.english.indexOf(e.key) > -1)
 			if key
 				if key.type == 'char'
-					console.log key["{keyboard_language}"][shift_pressed]
+					# console.log key["{keyboard_language}"][shift_pressed]
 					challenges[level_chosen][challenge_character].correct = key["{keyboard_language}"][shift_pressed] == challenges[level_chosen][challenge_character].char
 
-					if !challenges[level_chosen][challenge_character].correct and challenges[level_chosen][challenge_character].char == ' '
-						challenges[level_chosen][challenge_character].char = '·'
+					if !challenges[level_chosen][challenge_character].correct
+						if challenges[level_chosen][challenge_character].char == ' '
+							challenges[level_chosen][challenge_character].char = '·'
+						
+						score_mistakes++
 
+					if challenges[level_chosen][challenge_character].correct and not start_time
+						start_time = Date.now()
 
-					if challenge_character < challenges[level_chosen].length
+					if challenge_character < challenges[level_chosen].length - 1
 						challenge_character++
+					
+					if start_time
+						const timespan = Date.now! - start_time
+						score_cpm = (challenge_character / timespan) * 60000
+
+					if challenge_character == challenges[level_chosen].length - 1
+						finishChallenge!
+
 
 			imba.commit!
 
@@ -127,6 +143,9 @@ export class State
 
 			if pressed_keys.indexOf('shift') < 0
 				unshiftChar!
+
+			if pressed_keys.indexOf('alt') < 0
+				unaltChar!
 
 			imba.commit!
 
@@ -142,9 +161,29 @@ export class State
 			shift_pressed = 0
 			imba.commit!
 	
+	def altChar
+		if alt_pressed is 0
+			alt_pressed = 1
+			imba.commit!
+
+	def unaltChar
+		if alt_pressed > 0
+			alt_pressed = 0
+			imba.commit!
+		
+	
 	def setLevel level
 		if level !== level_chosen and level <= level_unlocked
 			level_chosen = level
+			score_mistakes = 0
+			challenge_character = 0
+			start_time = 0
+
+	def finishChallenge
+		start_time = 0
+		if score_mistakes == 0 && level_unlocked == level_chosen && score_cpm >= lever_spm_threshold
+			level_unlocked ++
+		
 
 	def setChallengeFont language
 		setCookie('challenge_font', challenge_font)

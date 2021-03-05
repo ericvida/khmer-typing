@@ -7,7 +7,7 @@ import {data_keys} from './data_keys'
 — ✅ Delete does not show pressed state
 - Make English Font style match Khmer Font Style CHoices
 - Make width of dot match width of space
-- apply .highlight class to current letter on keyboard if hint state is true.
+- ✅ apply .hint class to current letter on keyboard if hint state is true.
 - allow backspace to remove typo
 - require character's per minute goal
 - If challenge is in khmer make english keyboard output khmer also so that it matches.
@@ -25,6 +25,32 @@ export tag view-keyboard
 		else
 			return no
 
+	def highlight key
+		const char = data.challenges[data.level_chosen][data.challenge_character].char
+
+		if key[data.keyboard_language].indexOf(char) == 0
+			return yes
+		elif key[data.keyboard_language].indexOf(char) == 1
+			return yes
+
+		if /[A-Za-z]/.test(char)
+			if char == char.toUpperCase! && char != ' '
+				if key.english[0] == 'shift'
+					return yes
+		else
+			const khmer_char = data_keys.find(do(el) return el[data.keyboard_language].indexOf(char) > -1)
+			const index_of_khmer_char = khmer_char[data.keyboard_language].indexOf(char)
+
+			if index_of_khmer_char == 1
+				if key.english[0] == 'shift'
+					return yes
+			elif index_of_khmer_char == 2
+				if key.english[0] == 'alt'
+					return yes
+
+		return key[data.keyboard_language].indexOf(char) > -1
+
+
 	def render
 		<self>
 			<.board>
@@ -37,13 +63,15 @@ export tag view-keyboard
 								<.half-key .{key.status} .{key.finger} .{key.type} .{key.hand}> <span> key.english[0]
 								<.half-key .{key.status} .{key.finger} .{key.type} .{key.hand}> <span> key.english[1]
 					else
-						<.key.highlight .{key.status} .{key.finger}=data.keyboard_colored .{key.type} .{key.size} .name-{key.name} .{key.hand} .pressed=(pressed(key.english[0]) || pressed(key.english[1]))>
+						<.key .hint=highlight(key) .{key.status} .{key.finger}=data.keyboard_colored .{key.type} .{key.size} .name-{key.name} .{key.hand} .pressed=(pressed(key.english[0]) || pressed(key.english[1]))>
 							if key.type isnt "action"
 								<span.shift-preview>
-									if data.shift_pressed is 1
-										key["{data.keyboard_language}"][0]
-									else
+									if data.shift_pressed
 										key["{data.keyboard_language}"][1]
+									elif data.alt_pressed
+										key["{data.keyboard_language}"][2]
+									else
+										key["{data.keyboard_language}"][0]
 							<span.normal-preview> 
 								if key.name is 'spacebar'
 									"spacebar"
@@ -65,8 +93,8 @@ export tag view-keyboard
 		bg:cooler8
 		bxs:sm,md,md,xl
 		.first bg:rose5
-			&.highlight
-				animation: hint .5s infinite alternate
+		.hint
+			animation: hint .5s infinite alternate
 		.second bg:pink5
 		.third bg:violet5
 		.fourth bg:blue5

@@ -9,12 +9,14 @@ export tag view-levels
 			num
 		else
 			num
+
 	def isUnlocked num
 		if num <= data.level_unlocked
 			return true
 	def setLevel lvl
 		console.log lvl
 		data.setLevel(lvl)
+
 	def render
 		<self>
 			<.wrapper>

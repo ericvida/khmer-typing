@@ -15,16 +15,19 @@ TODO: Unlock next level when passed
 - 
 ###
 export tag view-scores
+	def accurancyScore 
+		return 100 - Math.floor((data.score_mistakes / data.challenges[data.level_chosen].length) * 100)
+
 	def render
 		<self> 
 			<.wpm> 
-				<span> data.score_wpm
+				<span> Math.floor(data.score_cpm)
 				if data.ui_language is "english"
-					" Words Per Minute"
+					" Chars Per Minute"
 				if data.ui_language is "khmer"
 					" ពាក្យក្នុងមួយនាទី"
 			<.accuracy> 
-				<span.warning> data.score_accuracy + "%"
+				<span.warning> accurancyScore! + "%"
 				if data.ui_language is "english"
 					" Accuracy"
 				if data.ui_language is "khmer"
