@@ -36,8 +36,10 @@ export tag view-challenge
 		ta:center
 		flex-shink: 1
 		flex-basis: auto
-	css span c:cooler1
-		fs:2em lh:2.2em
+	css span 
+		c:cooler1
+		fs:2em 
+		lh:2.2em
 	css .correct c:cooler6
 	css .wrong c:rose5
 	css .current c:lime5  bdb:5px solid lime5
