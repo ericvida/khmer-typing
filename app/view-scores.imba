@@ -2,11 +2,11 @@
 ### TODOS ✅
 TODO: Make Score part of state
 TODO: Calculate words per minute 
-- convert from from characters per minute 
+- from characters per minute 
 - start calculating when player starts typing a new challenge
 - stop calculating when challenge is complete.
 TODO: Calculate Accuracy
-- errors from length of string percentage
+- Count the errors from length of string percentage
 TODO: Calculate Mistakes
 - Counter for errors
 TODO: Unlock next level when passed
@@ -42,8 +42,16 @@ export tag view-scores
 		jc:space-evenly
 		c:cooler1
 		fl:0 1 4rem
-	css div fs:.9rem d:flex ai:center
-	css span fs:2rem mr:.5rem fw:bold c:lime6
+	css div 
+		fs:.9rem 
+		d:flex 
+		ai:center
+		us:none
+	css span 
+		fs:2rem 
+		mr:.5rem 
+		fw:bold 
+		c:lime6
 		&.alert
 			c:yellow5
 		&.warning

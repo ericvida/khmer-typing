@@ -46,6 +46,7 @@ export tag view-levels
 		pt:.05rem
 		rd:.2rem
 		mr:.3rem
+		us:none
 		bdb:.4rem solid cooler8/20
 		&.locked
 			cursor:not-allowed
