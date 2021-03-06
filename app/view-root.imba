@@ -5,6 +5,9 @@ import './view-scores'
 import './view-challenge'
 import './view-keyboard'
 import './view-settings'
+const confetti = require('canvas-confetti')
+let conf = confetti()
+console.log conf.promise
 # import {Bird} from './view-bird'
 
 import {State} from './State'

@@ -8,10 +8,18 @@ import {data_keys} from './data_keys'
 - Make English Font style match Khmer Font Style CHoices
 - Make width of dot match width of space
 - ✅ apply .hint class to current letter on keyboard if hint state is true.
-- allow backspace to remove typo
+- allow backspace. 
+	I think it's better to allow backspace, than not allow backspace.
+	It teaches the user to use backspace. We can allow backspace after a certain level.
 - require character's per minute goal
-- If challenge is in khmer make english keyboard output khmer also so that it matches.
-- if challenge is in english, then make khmer keyboard output english letters also.
+- Make challenge work with either english or khmer Keyboard Language, right now if I use the english keyboard layout, khmer challenges will not work.
+	- Allow for khmer challenges to work with either english or khmer keyboard layout.
+	- OR force the keyboard layout to match the language of the challenge.
+- Make challenge work with either english or khmer PC System Keyboard. 
+	Right now. If I use a khmer keyboard on mac, it will not work.
+- Make Enter go to the next unlocked level if passed or repeat level if not passed.
+- Make left arrow go back to the previous level
+- Make right arrow go to the next available level
 ###
 ###
 — Change Delete to backspace
@@ -67,17 +75,22 @@ export tag view-keyboard
 						<.key .hint=highlight(key) .{key.status} .{key.finger}=data.keyboard_colored .{key.type} .{key.size} .name-{key.name} .{key.hand} .pressed=(pressed(key.english[0]) || pressed(key.english[1]))>
 							if key.type isnt "action"
 								<span.shift-preview>
-									if data.shift_pressed
-										key["{data.keyboard_language}"][1]
-									elif data.alt_pressed
-										key["{data.keyboard_language}"][2]
-									else
+									if data.shift_pressed is 1
 										key["{data.keyboard_language}"][0]
+									elif data.shift_pressed is 0
+										key["{data.keyboard_language}"][1]
+									else
+										'alt'
+									
 							<span.normal-preview> 
 								if key.name is 'spacebar'
 									"spacebar"
+								elif data.shift_pressed
+										key["{data.keyboard_language}"][1]
+								elif data.alt_pressed
+									key["{data.keyboard_language}"][2]
 								else
-									key["{data.keyboard_language}"][data.shift_pressed]
+									key["{data.keyboard_language}"][0]
 	
 	# ========================
 	# STYLES

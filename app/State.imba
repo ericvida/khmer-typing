@@ -1,6 +1,6 @@
 import {khmer_challenges, english_challenges} from './data_challenges'
 import {data_keys} from './data_keys'
-
+import confetti from 'canvas-confetti'
 for challange, index in khmer_challenges
 	khmer_challenges[index] = challange.split('').map(do(character) return {
 		char: character
@@ -58,13 +58,13 @@ export class State
 	challenge_font = 'freehand'
 	
 	# Challenge Data
-	challenges = english_challenges
+	challenges = khmer_challenges
 	challenge_string = ''
 	challenge_character = 0
 	
 	# Level Data
-	level_count = 20
-	level_unlocked = 4
+	level_count = challenges.length
+	level_unlocked = 0
 	level_chosen = 0
 	level_spm_threshold = 20
 	
@@ -90,6 +90,10 @@ export class State
 		challenge_font = getCookie('challenge_font') || challenge_font
 		pressed_keys = []
 
+		if keyboard_language == 'english'
+			challenges = english_challenges
+		elif keyboard_language == 'khmer'
+			challenges = khmer_challenges
 
 		document.onkeydown = do(e)
 			e = e || window.event
@@ -112,13 +116,13 @@ export class State
 					if key["{keyboard_language}"][shift_pressed] == challenges[level_chosen][challenge_character].char and not start_time
 						start_time = Date.now()
 
-
 					if start_time
 						challenges[level_chosen][challenge_character].correct = key["{keyboard_language}"][shift_pressed] == challenges[level_chosen][challenge_character].char
 
 						if !challenges[level_chosen][challenge_character].correct
-							if challenges[level_chosen][challenge_character].char == ' '
-								challenges[level_chosen][challenge_character].char = '·'
+							# TODO: Remove if not used
+							# if challenges[level_chosen][challenge_character].char == ' '
+							# 	challenges[level_chosen][challenge_character].char = '·'
 							
 							score_mistakes++
 
@@ -131,11 +135,7 @@ export class State
 						const timespan = Date.now! - start_time
 						score_cpm = (challenge_character / timespan) * 60000
 						console.log score_cpm, challenge_character
-
-
 			imba.commit!
-
-
 
 
 		document.onkeyup = do(e)
@@ -175,7 +175,7 @@ export class State
 		
 	
 	def setLevel level
-		if level !== level_chosen and level <= level_unlocked
+		if level <= level_unlocked
 			level_chosen = level
 			score_mistakes = 0
 			challenge_character = 0
@@ -184,6 +184,11 @@ export class State
 	def finishChallenge
 		start_time = 0
 		if score_mistakes == 0 && level_unlocked == level_chosen && score_cpm >= level_spm_threshold
+			confetti({
+				particleCount: 200
+				spread: 70
+				origin: { y: .8 }
+			})	
 			level_unlocked++
 		
 
