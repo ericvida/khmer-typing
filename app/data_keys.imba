@@ -171,7 +171,7 @@ export const data_keys = [
 	---
 	name: 't'
 	english: ['t', 'T']
-	khmer: ['ត', 'ទ']
+	khmer: ['ត','ទ','ថ']
 	size: 'square'
 	type: 'char'
 	hand: 'left'
@@ -225,7 +225,7 @@ export const data_keys = [
 	---
 	name: 'left-bracket'
 	english: ['[', '\{']
-	khmer: ['ៀ', 'ឿ']
+	khmer: ['ៀ', 'ឿ','ឨ']
 	size: 'square'
 	type: 'char'
 	hand: 'right'
@@ -234,7 +234,7 @@ export const data_keys = [
 	---
 	name: 'right-bracket'
 	english: [']', '\}']
-	khmer: ['ឪ', 'ឧ']
+	khmer: ['ឪ', 'ឧ','ឩ']
 	size: 'square'
 	type: 'char'
 	hand: 'right'
@@ -243,7 +243,7 @@ export const data_keys = [
 	---
 	name: 'backslash'
 	english: ['\\', '\|']
-	khmer: ['ឭ', 'ឮ']
+	khmer: ['ឭ', 'ឮ', '\\']
 	size: 'long'
 	type: 'char'
 	hand: 'right'
@@ -261,7 +261,7 @@ export const data_keys = [
 	---
 	name: 'a'
 	english: ['a', 'A']
-	khmer: ['ា', 'ឫ']
+	khmer: ['ា', 'ឫ', 'ៜ']
 	size: 'square'
 	type: 'char'
 	hand: 'left'
@@ -270,7 +270,7 @@ export const data_keys = [
 	---
 	name: 's'
 	english: ['s', 'S']
-	khmer: ['ស', 'ៃ']
+	khmer: ['ស', 'ៃ','ឝ','ឞ']
 	size: 'square'
 	type: 'char'
 	hand: 'left'
@@ -279,7 +279,7 @@ export const data_keys = [
 	---
 	name: 'd'
 	english: ['d', 'D']
-	khmer: ['ដ', 'ឌ']
+	khmer: ['ដ', 'ឌ','ឞ']
 	size: 'square'
 	type: 'char'
 	hand: 'left'
@@ -342,7 +342,7 @@ export const data_keys = [
 	---
 	name: 'semi-colon'
 	english: [';', '\:']
-	khmer: ['ើ', '៖']
+	khmer: ['ើ', '៖';]
 	size: 'square'
 	type: 'char'
 	hand: 'right'
@@ -351,7 +351,7 @@ export const data_keys = [
 	---
 	name: 'single-quote'
 	english: ['\'', '\"']
-	khmer: ['់', '៉']
+	khmer: ['់', '៉','\'']
 	size: 'square'
 	type: 'char'
 	hand: 'right'
@@ -441,7 +441,7 @@ export const data_keys = [
 	---
 	name: 'comma'
 	english: [',', '<']
-	khmer: ['ឦ', 'ឱ']
+	khmer: ['ឦ', 'ឱ', ',']
 	size: 'square'
 	type: 'char'
 	hand: 'right'
@@ -450,7 +450,7 @@ export const data_keys = [
 	---
 	name: 'period'
 	english: ['.', '>']
-	khmer: ['។', '៕']
+	khmer: ['។', '៕', '.']
 	size: 'square'
 	type: 'char'
 	hand: 'right'
@@ -459,7 +459,7 @@ export const data_keys = [
 	---
 	name: 'forward-slash'
 	english: ['/', '?']
-	khmer: ['៊', 'ឯ']
+	khmer: ['៊', 'ឯ', '/']
 	size: 'square'
 	type: 'char'
 	hand: 'right'

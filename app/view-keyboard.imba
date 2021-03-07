@@ -8,6 +8,7 @@ import {data_keys} from './data_keys'
 - Make English Font style match Khmer Font Style CHoices
 - Make width of dot match width of space
 - ✅ apply .hint class to current letter on keyboard if hint state is true.
+- alt + s doesn't register for the third khmer challenge.
 - allow backspace. 
 	I think it's better to allow backspace, than not allow backspace.
 	It teaches the user to use backspace. We can allow backspace after a certain level.
@@ -20,6 +21,7 @@ import {data_keys} from './data_keys'
 - Make Enter go to the next unlocked level if passed or repeat level if not passed.
 - Make left arrow go back to the previous level
 - Make right arrow go to the next available level
+- TODO: BUG: if i type command+letter the letter will be stuck with the .pressed class until I press the key again.
 ###
 ###
 — Change Delete to backspace

@@ -90,11 +90,6 @@ export class State
 		challenge_font = getCookie('challenge_font') || challenge_font
 		pressed_keys = []
 
-		if keyboard_language == 'english'
-			challenges = english_challenges
-		elif keyboard_language == 'khmer'
-			challenges = khmer_challenges
-
 		document.onkeydown = do(e)
 			e = e || window.event
 			e.preventDefault!
@@ -180,7 +175,6 @@ export class State
 			score_mistakes = 0
 			challenge_character = 0
 			start_time = 0
-
 	def finishChallenge
 		start_time = 0
 		if score_mistakes == 0 && level_unlocked == level_chosen && score_cpm >= level_spm_threshold
@@ -190,7 +184,6 @@ export class State
 				origin: { y: .8 }
 			})	
 			level_unlocked++
-		
 
 	def setChallengeFont language
 		setCookie('challenge_font', challenge_font)

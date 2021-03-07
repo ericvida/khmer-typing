@@ -1,9 +1,12 @@
 export tag view-settings
 	def setLanguage language
 		data.setUILanguage language
+	def setChallengeLanguage language
+		data.setChallengeLanguage(language)
 	def setKeyboardLanguage language
 		data.keyboard_language = language
 		data.setCookie('keyboard_language', data.keyboard_language)
+		setChallengeLanguage(language)
 	def toggleColored
 		data.keyboard_colored = !data.keyboard_colored
 		data.setCookie('keyboard_colored', data.keyboard_colored)
@@ -17,7 +20,7 @@ export tag view-settings
 		<self>
 			<p> # TODO: not sure why, but won't render without adding element here
 			<div>
-				<input bind=data.keyboard_hints #hints type="checkbox" name="keylang" @input=toggleColored> 
+				<input bind=data.keyboard_hints #hints type="checkbox" name="keyboardhints" @input=toggleHints> 
 				<label for="hints" name="keyboardhints"> 
 					if data.ui_language is "english"
 						" Hints"
@@ -32,8 +35,8 @@ export tag view-settings
 						" មានពណ៌"
 			<div>
 				<select bind=data.keyboard_language>
-					<option value="english" @click=setKeyboardLanguage("english")> "English"
-					<option value="khmer" @click=setKeyboardLanguage("khmer")> "Khmer"
+					<option value="english" @click.setKeyboardLanguage("english")> "English"
+					<option value="khmer" @click.setKeyboardLanguage("khmer")> "Khmer"
 				<label> 
 					if data.ui_language is "english"
 						" Keyboard Language"
