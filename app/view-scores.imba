@@ -12,7 +12,6 @@ TODO: Calculate Mistakes
 TODO: Unlock next level when passed
 - 100% accuracy to pass
 - 0 mistakes to pass
-- 
 ###
 export tag view-scores
 	def accurancyScore 
@@ -22,22 +21,25 @@ export tag view-scores
 		<self> 
 			<.wpm> 
 				<span> Math.floor(data.score_cpm)
-				if data.ui_language is "english"
-					" Chars Per Minute"
-				if data.ui_language is "khmer"
-					" ពាក្យក្នុងមួយនាទី"
+				data.lang.cpm
+				# if data.ui_language is "english"
+				# 	" "
+				# if data.ui_language is "khmer"
+				# 	" "
 			<.accuracy> 
 				<span.warning> accurancyScore! + "%"
-				if data.ui_language is "english"
-					" Accuracy"
-				if data.ui_language is "khmer"
-					" ភាព​ត្រឹមត្រូវ"
+				data.lang.accurancy_score
+				# if data.ui_language is "english"
+				# 	" "
+				# if data.ui_language is "khmer"
+				# 	" "
 			<.typos> 
 				<span> data.score_mistakes
-				if data.ui_language is "english"
-					" Mistakes"
-				if data.ui_language is "khmer"
-					" កំហុស"
+				data.lang.mistakes_score
+				# if data.ui_language is "english"
+				# 	" Mistakes"
+				# if data.ui_language is "khmer"
+				# 	" កំហុស"
 					
 	css &
 		bg:cooler9

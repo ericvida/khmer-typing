@@ -1,6 +1,8 @@
 import {khmer_challenges, english_challenges} from './data_challenges'
+import {khmer, english} from './localization'
 import {data_keys} from './data_keys'
 import confetti from 'canvas-confetti'
+
 for challange, index in khmer_challenges
 	khmer_challenges[index] = challange.split('').map(do(character) return {
 		char: character
@@ -10,9 +12,6 @@ for challange, index in english_challenges
 	english_challenges[index] = challange.split('').map(do(character) return {
 		char: character
 	})
-
-
-# console.log khmer_challenges, english_challenges
 
 
 ### Available objects'
@@ -62,12 +61,13 @@ export class State
 	challenge_string = ''
 	challenge_character = 0
 	
+	# Track unlocked level for English challenges and Khmer challenges independently
 	# Level Data
 	level_count = challenges.length
 	level_unlocked = 0
 	level_chosen = 0
 	level_spm_threshold = 20
-	
+
 	# Score State
 	score_cpm = 0
 	score_mistakes = 0
@@ -79,58 +79,26 @@ export class State
 
 	pressed_keys = []
 
+	# Localization
+	lang = english
+	language = ''
+
 
 	def constructor
 		ui_language = getCookie('ui_language') || ui_language
+		setUILanguage(ui_language)
+
 		keyboard_language = getCookie('keyboard_language') || keyboard_language
-		level_unlocked = getCookie('level_unlocked') || level_unlocked
-		level_chosen = getCookie('level_chosen') || level_chosen
+		setChallengeLanguage(keyboard_language)
+
+		level_unlocked  = parseInt(getCookie('level_unlocked')) || level_unlocked 
+		level_chosen = parseInt(getCookie('level_chosen')) || level_chosen
 		keyboard_colored = !(getCookie('keyboard_colored') == 'false')
 		keyboard_hints = !(getCookie('keyboard_hints') == 'false')
 		challenge_font = getCookie('challenge_font') || challenge_font
 		pressed_keys = []
 
-		document.onkeydown = do(e)
-			e = e || window.event
-			e.preventDefault!
-			e.stopPropagation!
-
-			if e.shiftKey || e.key == 'Shift'
-				shiftChar!
-			if e.altKey || e.key == 'Alt'
-				altChar!
-
-			unless pressed_keys.indexOf(e.key.toLowerCase!) > -1
-				pressed_keys.push(e.key.toLowerCase!)
-
-			# console.log e
-			const key = data_keys.find(do(el) return el.english.indexOf(e.key) > -1)
-			if key
-				if key.type == 'char'
-					# console.log key["{keyboard_language}"][shift_pressed]
-					if key["{keyboard_language}"][shift_pressed] == challenges[level_chosen][challenge_character].char and not start_time
-						start_time = Date.now()
-
-					if start_time
-						challenges[level_chosen][challenge_character].correct = key["{keyboard_language}"][shift_pressed] == challenges[level_chosen][challenge_character].char
-
-						if !challenges[level_chosen][challenge_character].correct
-							# TODO: Remove if not used
-							# if challenges[level_chosen][challenge_character].char == ' '
-							# 	challenges[level_chosen][challenge_character].char = '·'
-							
-							score_mistakes++
-
-						if challenge_character < challenges[level_chosen].length - 1
-							challenge_character++
-						else
-							finishChallenge!
-							return
-					
-						const timespan = Date.now! - start_time
-						score_cpm = (challenge_character / timespan) * 60000
-						console.log score_cpm, challenge_character
-			imba.commit!
+		document.onkeydown = do(e) keydownTracker(e)
 
 
 		document.onkeyup = do(e)
@@ -139,15 +107,93 @@ export class State
 			pressed_keys.splice(pressed_keys.indexOf(e.key.toLowerCase!), 1)
 
 			if pressed_keys.indexOf('shift') < 0
-				unshiftChar!
+				unshiftChar! 
+
+			if e.which == 225
+				pressed_keys.splice(pressed_keys.indexOf('alt'), 1)
 
 			if pressed_keys.indexOf('alt') < 0
 				unaltChar!
 
+			# console.log pressed_keys
+
 			imba.commit!
 
 
-			
+	def keydownTracker e
+		e = e || window.event
+		e.preventDefault!
+		e.stopPropagation!
+		
+
+		if e.which == 13 || e.which == 39
+			setLevel(level_chosen + 1)
+		elif e.which == 37
+			setLevel(level_chosen - 1)
+
+		if e.shiftKey || e.key == 'Shift'
+			shiftChar!
+
+		if e.altKey || e.key == 'Alt' || e.which == 225
+			altChar!
+
+		if pressed_keys.indexOf(e.key.toLowerCase!) == -1
+			let keystr = e.key.toLowerCase!
+			if keystr.slice(0,3) == 'alt'
+				pressed_keys.push('alt')
+			else
+				pressed_keys.push(keystr)
+
+		let key = data_keys.find(do(el) return el.english.indexOf(e.key) > -1)
+		unless key
+			key = data_keys.find(do(el) return el.khmer.indexOf(e.key) > -1)
+
+		console.log e
+		console.log key, pressed_keys
+		
+
+		if key
+			if key.char
+				# Detect what key the user pressed in relation to alt and shift keys
+				let key_char = ''
+				if shift_pressed && not alt_pressed
+					key_char = key[keyboard_language][1]
+				elif not shift_pressed && alt_pressed
+					key_char = key[keyboard_language][2]
+				elif shift_pressed && alt_pressed
+					key_char = key[keyboard_language][3]
+				else
+					key_char = key[keyboard_language][0]
+
+
+
+				if key_char == challenges[level_chosen][challenge_character].char and not start_time
+					start_time = Date.now()
+
+				if start_time
+					challenges[level_chosen][challenge_character].correct = key_char == challenges[level_chosen][challenge_character].char
+
+					if !challenges[level_chosen][challenge_character].correct
+						score_mistakes++
+
+					if challenge_character < challenges[level_chosen].length - 1
+						challenge_character++
+					else
+						finishChallenge!
+						return
+				
+					const timespan = Date.now! - start_time
+					score_cpm = (challenge_character / timespan) * 60000
+					# Fixed issue when score_cpm was equal to infinity.
+					if score_cpm > 10000000
+						score_cpm = 1
+		if e.which == 8
+			if challenge_character > 0
+				challenge_character--
+
+		imba.commit!
+
+
 	def shiftChar
 		if shift_pressed is 0
 			shift_pressed = 1
@@ -167,14 +213,16 @@ export class State
 		if alt_pressed > 0
 			alt_pressed = 0
 			imba.commit!
-		
+
+
 	
 	def setLevel level
-		if level <= level_unlocked
+		if 0 <= level <= level_unlocked
 			level_chosen = level
 			score_mistakes = 0
 			challenge_character = 0
 			start_time = 0
+
 	def finishChallenge
 		start_time = 0
 		if score_mistakes == 0 && level_unlocked == level_chosen && score_cpm >= level_spm_threshold
@@ -182,20 +230,34 @@ export class State
 				particleCount: 200
 				spread: 70
 				origin: { y: .8 }
-			})	
-			level_unlocked++
+			})
+			if level_unlocked < challenges.length - 1
+				level_unlocked++
+
 
 	def setChallengeFont language
-		setCookie('challenge_font', challenge_font)
 		challenge_font = language
+		setCookie('challenge_font', challenge_font)
 		
 	def setUILanguage language
-		setCookie('ui_language', ui_language)
 		ui_language = language
+		setCookie('ui_language', ui_language)
+
+		if ui_language is 'khmer'
+			lang = khmer
+		else
+			lang = english
 
 	def setKeyboardLanguage language
-		setCookie('keyboard_language', keyboard_language)
 		keyboard_language = language
+		setCookie('keyboard_language', keyboard_language)
+
+	def setChallengeLanguage language
+		if language == 'khmer'
+			challenges = khmer_challenges
+		else
+			challenges = english_challenges
+
 
 	def getCookie c_name
 		return window.localStorage.getItem(c_name)

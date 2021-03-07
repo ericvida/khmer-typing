@@ -14,23 +14,22 @@ export tag view-challenge
 			when 'script' then return "'Moul', cursive, serif"
 			when 'modern' then return "'Dangrek', cursive, sans-serif"
 			else return "'freehand', cursive, script"
-	def isSpace char
-		if char is ' '
-			return true
-		else
-			return false
+
+
 	def render
 		<self[ff:{fontFamily!}]>
 			<div.wrapper>
 				for item, i of data.challenges[data.level_chosen]
 					if i is data.challenge_character
-						<span .space=isSpace(item.char) .current> "{item.char}"
+						<span .space=(item.char == ' ') .current> "{item.char}"
 
 					elif i <= data.challenge_character
-						<span .space=isSpace(item.char) .wrong=!item.correct .correct=item.correct> "{item.char}"
+						<span .space=(item.char == ' ') .wrong=!item.correct .correct=item.correct> "{item.char}"
 
 					else
-						<span .space=isSpace(item.char) > "{item.char}"
+						<span .space=(item.char == ' ') > "{item.char}"
+
+
 	css &
 		$size: 3rem @xs: 2.1rem @lg: 2rem
 		of:visible
@@ -38,6 +37,7 @@ export tag view-challenge
 		d:flex
 		min-height: 4em
 		bg:cooler9 jc:center d:flex ai:center 
+
 	css .wrapper
 		w:100%
 		d:block
@@ -45,11 +45,14 @@ export tag view-challenge
 		ta:center
 		flex-shink: 1
 		flex-basis: auto
+
 	css span 
 		c:cooler1
 		fs:2em 
 		lh:2.2em
+
 	css .correct c:cooler6
+
 	css .space
 		w:1rem
 		content: ''
@@ -62,5 +65,7 @@ export tag view-challenge
 				pos:absolute
 				t:50% l:50% transform:translate(-50%, -50%)
 			
+
 	css .wrong c:rose5
+
 	css .current c:lime5  bdb:5px solid lime5

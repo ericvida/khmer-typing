@@ -2,14 +2,14 @@ import {data_keys} from './data_keys'
 ### TODOS: ✅
 — ✅ pressed state not working in khmer keyboard language
 — ✅ space press is not shown
-— Space does not show pressed state
+— ✅ Space does not show pressed state
 — ✅ When Shift + character is pressed, and character is released, the keyboard returns to lowercase even if you are still holding shift
 — ✅ Delete does not show pressed state
 - Make English Font style match Khmer Font Style CHoices
-- Make width of dot match width of space
+- ✅ Make width of dot match width of space
 - ✅ apply .hint class to current letter on keyboard if hint state is true.
 - alt + s doesn't register for the third khmer challenge.
-- allow backspace. 
+- ✅ allow backspace. 
 	I think it's better to allow backspace, than not allow backspace.
 	It teaches the user to use backspace. We can allow backspace after a certain level.
 - require character's per minute goal
@@ -18,24 +18,35 @@ import {data_keys} from './data_keys'
 	- OR force the keyboard layout to match the language of the challenge.
 - Make challenge work with either english or khmer PC System Keyboard. 
 	Right now. If I use a khmer keyboard on mac, it will not work.
-- Make Enter go to the next unlocked level if passed or repeat level if not passed.
-- Make left arrow go back to the previous level
-- Make right arrow go to the next available level
+- ✅ Make Enter go to the next unlocked level if passed or repeat level if not passed.
+- ✅ Make left arrow go back to the previous level
+- ✅ Make right arrow go to the next available level
 - TODO: BUG: if i type command+letter the letter will be stuck with the .pressed class until I press the key again.
 ###
 ###
 — Change Delete to backspace
 ###
+
+
 export tag view-keyboard
 	letter_index = 0
 
 	def pressed key
-		if data.pressed_keys.indexOf(key) > -1
-			return yes
-		else
-			return no
+		for k in key.english
+			if data.pressed_keys.indexOf(k) > -1  
+				return yes
+
+		for k in key.khmer
+			if data.pressed_keys.indexOf(k) > -1  
+				return yes
+
+		return no
+
 
 	def highlight key
+		if data.challenge_character == data.challenges[data.level_chosen].length - 1 or not data.keyboard_hints
+			return no
+
 		const char = data.challenges[data.level_chosen][data.challenge_character].char
 
 		if key[data.keyboard_language].indexOf(char) == 0
@@ -55,11 +66,15 @@ export tag view-keyboard
 				if index_of_khmer_char == 1
 					if key.english[0] == 'shift'
 						return yes
+
 				elif index_of_khmer_char == 2
 					if key.english[0] == 'alt'
 						return yes
 
+
 		return key[data.keyboard_language].indexOf(char) > -1
+
+
 
 
 	def render
@@ -71,28 +86,32 @@ export tag view-keyboard
 					if key.name is 'up-down-arrows'
 						<.name-up-down-wrapper.{key.size} >
 							<.name-{key.name}>
-								<.half-key .{key.status} .{key.finger} .{key.type} .{key.hand}> <span> key.english[0]
-								<.half-key .{key.status} .{key.finger} .{key.type} .{key.hand}> <span> key.english[1]
+								<.half-key .disabled=key.disabled .{key.finger} .action=!key.char .{key.hand}> <span> key.english[0]
+								<.half-key .disabled=key.disabled .{key.finger} .action=!key.char .{key.hand}> <span> key.english[1]
 					else
-						<.key .hint=highlight(key) .{key.status} .{key.finger}=data.keyboard_colored .{key.type} .{key.size} .name-{key.name} .{key.hand} .pressed=(pressed(key.english[0]) || pressed(key.english[1]))>
-							if key.type isnt "action"
+						<.key .hint=highlight(key) .disabled=key.disabled .{key.finger}=data.keyboard_colored .action=!key.char .{key.size} .name-{key.name} .{key.hand} .pressed=pressed(key)>
+							if key.char
 								<span.shift-preview>
-									if data.shift_pressed is 1
-										key["{data.keyboard_language}"][0]
-									elif data.shift_pressed is 0
-										key["{data.keyboard_language}"][1]
+									if data.shift_pressed
+										key[data.keyboard_language][0]
 									else
-										'alt'
-									
-							<span.normal-preview> 
-								if key.name is 'spacebar'
-									"spacebar"
-								elif data.shift_pressed
-										key["{data.keyboard_language}"][1]
-								elif data.alt_pressed
-									key["{data.keyboard_language}"][2]
-								else
-									key["{data.keyboard_language}"][0]
+										key[data.keyboard_language][1]
+
+								<span.normal-preview>
+									if key.name is 'spacebar'
+										"spacebar"
+									elif data.shift_pressed and not data.alt_pressed
+										key[data.keyboard_language][1]
+									elif data.alt_pressed and not data.shift_pressed
+										key[data.keyboard_language][2]
+									elif data.alt_pressed and data.shift_pressed
+										key[data.keyboard_language][3]
+									else
+										key[data.keyboard_language][0]
+
+							else
+								<span.normal-preview>
+									key[data.keyboard_language][0]
 	
 	# ========================
 	# STYLES
@@ -100,6 +119,7 @@ export tag view-keyboard
 	css @keyframes hint
 		0% bg:cooler4
 		100% bg:cooler1
+	
 	css &
 		$radius:0.3rem
 		$key-shadow:sm, md, md, lg
@@ -127,20 +147,26 @@ export tag view-keyboard
 		d:grid jc:center
 		gtc: repeat(30, 1rem)
 		grid-gap:.5rem
+	
 	css .square
 		$aspect-ratio:1/1
 		grid-column:span 2
 		h:2.5rem
-		&.pressed
-			h:2.4rem
-			transform:translateY(.1rem)
-			bxs:inset 0 0 0 0 gray9/50, sm, md, md, lg
+
+	css .pressed
+		h:2.4rem
+		transform:translateY(.1rem)
+		bxs:inset 0 0 0 0 gray9/50, sm, md, md, lg
+	
 	css .long
 		grid-column:span 3
+
 	css .longer
 		grid-column:span 4
+
 	css .longest
 		grid-column:span 5
+
 	css .key
 		rd:$radius
 		pos:relative
@@ -212,6 +238,7 @@ export tag view-keyboard
 			bxs:lg
 			bg:cooler6 @hover:cooler6
 			transform:none
+
 	css .name-up-down-arrows
 		rd:$radius
 		d:grid

@@ -4,15 +4,16 @@ TODO: maybe add locked, chosen, unlocked classes dynamically, so they can animat
 TODO: Make levels persistent after click. Currently it defaults to level 1 on refresh.
 ###
 export tag view-levels
-	def levelText num
-		if num is data.level_unlocked
-			num
-		else
-			num
+	# ?????????????????
+	# def levelText num
+	# 	if num is data.level_unlocked
+	# 		num
+	# 	else
+	# 		num
 
 	def isUnlocked num
-		if num <= data.level_unlocked
-			return true
+		return num <= data.level_unlocked
+
 	def setLevel lvl
 		data.setLevel(lvl)
 
@@ -20,17 +21,21 @@ export tag view-levels
 		<self>
 			<.wrapper>
 				<div.level-button.chosen[px:2 cursor:default us:none]> 
-					if data.ui_language is "english"
-						"level"
-					if data.ui_language is "khmer"
-						"កម្រិត"
+					data.lang.level
+					# if data.ui_language is "english"
+					# 	"level"
+					# if data.ui_language is "khmer"
+					# 	"កម្រិត"
+
 				for item,i in [0 ... data.level_count]
 					if i > data.level_unlocked
 						<div.level-button.locked @click.setLevel(i)> i + 1
-					elif i <= data.level_chosen
+					elif i == data.level_chosen
 						<div.level-button.chosen @click.setLevel(i)> i + 1
 					elif i <= data.level_unlocked
 						<div.level-button.unlocked @click.setLevel(i)> i + 1
+
+
 	css
 		d:block 
 		bg:cooler9
