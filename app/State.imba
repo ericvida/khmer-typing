@@ -50,7 +50,7 @@ state.setChallengeFont('')
 export class State
 	# UI Settings
 	ui_language = "english"
-	keyboard_language = 'english'
+	keyboard_language = 'khmer'
 	keyboard_colored = yes
 	keyboard_hints = yes
 	
@@ -153,8 +153,8 @@ export class State
 		unless key
 			key = data_keys.find(do(el) return el.khmer.indexOf(e.key) > -1)
 
-		# console.log e
-		# console.log key, pressed_keys
+		console.log e.which
+		# console.log key, pressed_keys.which
 		
 
 		if key

@@ -39,7 +39,6 @@ export tag view-keyboard
 		for k in key.khmer
 			if data.pressed_keys.indexOf(k) > -1  
 				return yes
-
 		return no
 
 
