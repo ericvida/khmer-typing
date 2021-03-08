@@ -7,7 +7,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'first'
 	disabled: no
-	which: 192
+	id: 192
 	---
 	name: 'one'
 	english: ['1', '!']
@@ -17,7 +17,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'first'
 	disabled: no
-	which: 49
+	id: 49
 	---
 	name: 'two'
 	english: ['2', '@']
@@ -27,7 +27,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'second'
 	disabled: no
-	which: 50
+	id: 50
 	---
 	name: 'three'
 	english: ['3', '#']
@@ -37,7 +37,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'third'
 	disabled: no
-	which: 51
+	id: 51
 	---
 	name: 'four'
 	english: ['4', '$']
@@ -47,7 +47,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'fourth'
 	disabled: no
-	which: 52
+	id: 52
 	---
 	name: 'five'
 	english: ['5', '%']
@@ -57,7 +57,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'fourth'
 	disabled: no
-	which: 53
+	id: 53
 	---
 	name: 'six'
 	english: ['6', '^']
@@ -67,7 +67,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'seventh'
 	disabled: no
-	which: 54
+	id: 54
 	---
 	name: 'seven'
 	english: ['7','&']
@@ -77,7 +77,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'seventh'
 	disabled: no
-	which: 55
+	id: 55
 	---
 	name: 'eight'
 	english: ['8', '*']
@@ -86,7 +86,7 @@ export const data_keys = [
 	char: yes
 	finger: 'eighth'
 	disabled: no
-	which: 56
+	id: 56
 	---
 	name: 'nine'
 	english: ['9', '(']
@@ -96,7 +96,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'ninth'
 	disabled: no
-	which: 57
+	id: 57
 	---
 	name: 'zero'
 	english: ['0', ')']
@@ -106,7 +106,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: no
-	which: 48
+	id: 48
 	---
 	name: 'dash'
 	english: ['\-', '\_']
@@ -116,7 +116,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: no
-	which: 173
+	id: 173
 	---
 	name: 'equals'
 	english: ['\=', '\+']
@@ -126,7 +126,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: no
-	which: 61
+	id: 61
 	---
 	name: 'backspace'
 	english: ['backspace', 'backspace']
@@ -136,7 +136,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: no
-	which: 8
+	id: 8
 	---
 	name: 'tab'
 	english: ['tab', 'tab']
@@ -146,7 +146,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'first'
 	disabled: yes
-	which: 9
+	id: 9
 	---
 	name: 'q'
 	english: ['q', 'Q']
@@ -156,7 +156,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'first'
 	disabled: no
-	which: 81
+	id: 81
 	---
 	name: 'w'
 	english: ['w', 'W']
@@ -166,7 +166,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'second'
 	disabled: no
-	which: 87
+	id: 87
 	---
 	name: 'e'
 	english: ['e', 'E']
@@ -176,7 +176,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'third'
 	disabled: no
-	which: 69
+	id: 69
 	---
 	name: 'e'
 	english: ['r', 'R']
@@ -186,7 +186,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'fourth'
 	disabled: no
-	which: 82
+	id: 82
 	---
 	name: 't'
 	english: ['t', 'T']
@@ -196,7 +196,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'fourth'
 	disabled: no
-	which: 84
+	id: 84
 	---
 	name: 'y'
 	english: ['y', 'Y']
@@ -206,7 +206,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'seventh'
 	disabled: no
-	which: 89
+	id: 89
 	---
 	name: 'u'
 	english: ['u', 'U']
@@ -216,7 +216,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'seventh'
 	disabled: no
-	which: 85
+	id: 85
 	---
 	name: 'i'
 	english: ['i', 'I']
@@ -226,7 +226,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'eighth'
 	disabled: no
-	which: 73
+	id: 73
 	---
 	name: 'o'
 	english: ['o', 'O']
@@ -236,7 +236,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'ninth'
 	disabled: no
-	which: 79
+	id: 79
 	---
 	name: 'p'
 	english: ['p', 'P']
@@ -246,7 +246,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: no
-	which: 80
+	id: 80
 	---
 	name: 'left-bracket'
 	english: ['[', '\{']
@@ -256,7 +256,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: no
-	which: 219
+	id: 219
 	---
 	name: 'right-bracket'
 	english: [']', '\}']
@@ -266,7 +266,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: no
-	which: 221
+	id: 221
 	---
 	name: 'backslash'
 	english: ['\\', '\|']
@@ -276,7 +276,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: no
-	which: 220
+	id: 220
 	---
 	name: 'caps-lock'
 	english: ['caps lock', 'caps lock']
@@ -286,7 +286,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'first'
 	disabled: yes
-	which: 20
+	id: 20
 	---
 	name: 'a'
 	english: ['a', 'A']
@@ -296,7 +296,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'first'
 	disabled: no
-	which: 65
+	id: 65
 	---
 	name: 's'
 	english: ['s', 'S']
@@ -306,7 +306,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'second'
 	disabled: no
-	which: 83
+	id: 83
 	---
 	name: 'd'
 	english: ['d', 'D']
@@ -316,7 +316,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'third'
 	disabled: no
-	which: 68
+	id: 68
 	---
 	name: 'f'
 	english: ['f', 'F']
@@ -326,7 +326,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'fourth'
 	disabled: no
-	which: 70
+	id: 70
 	---
 	name: 'g'
 	english: ['g', 'G']
@@ -336,7 +336,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'fourth'
 	disabled: no
-	which: 71
+	id: 71
 	---
 	name: 'h'
 	english: ['h', 'H']
@@ -346,7 +346,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'seventh'
 	disabled: no
-	which: 72
+	id: 72
 	---
 	name: 'j'
 	english: ['j', 'J']
@@ -356,7 +356,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'seventh'
 	disabled: no
-	which: 74
+	id: 74
 	---
 	name: 'k'
 	english: ['k', 'K']
@@ -366,7 +366,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'eighth'
 	disabled: no
-	which: 75
+	id: 75
 	---
 	name: 'l'
 	english: ['l', 'L']
@@ -376,7 +376,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'ninth'
 	disabled: no
-	which: 76
+	id: 76
 	---
 	name: 'semi-colon'
 	english: [';', '\:']
@@ -386,7 +386,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: no
-	which: 59
+	id: 59
 	---
 	name: 'single-quote'
 	english: ['\'', '\"']
@@ -396,7 +396,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: no
-	which: 222
+	id: 222
 	---
 	name: 'enter'
 	english: ['enter']
@@ -406,7 +406,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: yes
-	which: 13
+	id: 13
 	---
 	name: 'left-shift'
 	english: ['shift', 'shift']
@@ -416,7 +416,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'first'
 	disabled: no
-	which: 16
+	id: 16
 	---
 	name: 'z'
 	english: ['z', 'Z']
@@ -426,7 +426,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'first'
 	disabled: no
-	which: 90
+	id: 90
 	---
 	name: 'x'
 	english: ['x', 'X']
@@ -436,7 +436,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'second'
 	disabled: no
-	which: 88
+	id: 88
 	---
 	name: 'c'
 	english: ['c', 'C']
@@ -446,7 +446,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'third'
 	disabled: no
-	which: 67
+	id: 67
 	---
 	name: 'v'
 	english: ['v', 'V']
@@ -456,7 +456,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'fourth'
 	disabled: no
-	which: 86
+	id: 86
 	---
 	name: 'b'
 	english: ['b', 'B']
@@ -466,7 +466,7 @@ export const data_keys = [
 	hand: 'left'
 	finger: 'fourth'
 	disabled: no
-	which: 66
+	id: 66
 	---
 	name: 'n'
 	english: ['n', 'N']
@@ -476,7 +476,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'seventh'
 	disabled: no
-	which: 78
+	id: 78
 	---
 	name: 'm'
 	english: ['m', 'M']
@@ -486,7 +486,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'seventh'
 	disabled: no
-	which: 77
+	id: 77
 	---
 	name: 'comma'
 	english: [',', '<']
@@ -496,7 +496,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'eighth'
 	disabled: no
-	which: 188
+	id: 188
 	---
 	name: 'period'
 	english: ['.', '>']
@@ -506,7 +506,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'ninth'
 	disabled: no
-	which: 190
+	id: 190
 	---
 	name: 'forward-slash'
 	english: ['/', '?']
@@ -516,7 +516,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: no
-	which: 191
+	id: 191
 	---
 	name: 'right-shift'
 	english: ['shift', 'shift']
@@ -526,7 +526,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: no
-	which: 16
+	id: 16
 	---
 	name: 'left-function'
 	english: ['fn', 'fn']
@@ -536,7 +536,7 @@ export const data_keys = [
 	hand: 'both'
 	finger: 'first'
 	disabled: yes
-	which: 0
+	id: 0
 	---
 	name: 'left-control'
 	english: ['ctrl', 'ctrl']
@@ -546,7 +546,7 @@ export const data_keys = [
 	char: no
 	finger: 'first'
 	disabled: yes
-	which: 17
+	id: 17
 	---
 	name: 'left-alt'
 	english: ['alt', 'alt']
@@ -556,7 +556,7 @@ export const data_keys = [
 	char: no
 	finger: 'fifth'
 	disabled: no
-	which: 18
+	id: 18
 	---
 	name: 'left-command'
 	english: ['cmd', 'cmd']
@@ -566,7 +566,7 @@ export const data_keys = [
 	char: no
 	finger: 'fifth'
 	disabled: yes
-	which: 224
+	id: 224
 	---
 	name: 'spacebar'
 	english: [' ', ' ']
@@ -576,7 +576,7 @@ export const data_keys = [
 	hand: 'both'
 	finger: 'fifth'
 	disabled: no
-	which: 32
+	id: 32
 	---
 	name: 'right-command'
 	english: ['cmd', 'cmd']
@@ -586,7 +586,7 @@ export const data_keys = [
 	hand: 'both'
 	finger: 'sixth'	
 	disabled: yes
-	which: 224 
+	id: 224 
 	---
 	name: 'right-alt'
 	english: ['alt', 'alt']
@@ -596,7 +596,7 @@ export const data_keys = [
 	hand: 'both'
 	finger: 'sixth'
 	disabled: no
-	which: 18
+	id: 18
 	---
 	name: 'right-control'
 	english: ['ctrl']
@@ -606,7 +606,7 @@ export const data_keys = [
 	hand: 'right'
 	finger: 'tenth'
 	disabled: yes
-	which: 17
+	id: 17
 	---
 	name: 'left-arrow'
 	english: ['◀︎']
@@ -616,7 +616,7 @@ export const data_keys = [
 	hand: 'both'
 	finger: 'seventh'
 	disabled: yes
-	which: 37
+	id: 37
 	---
 	name: 'up-down-arrows'
 	english: ['▲', '▼']
@@ -626,7 +626,7 @@ export const data_keys = [
 	hand: 'both'
 	finger: 'eighth'
 	disabled: yes
-	which: [38,40]
+	id: [38,40]
 	---
 	name: 'right-arrow'
 	english: ['▶︎']
@@ -636,5 +636,5 @@ export const data_keys = [
 	hand: 'both'
 	finger: 'ninth'
 	disabled: yes
-	which: 39
+	id: 39
 ]
