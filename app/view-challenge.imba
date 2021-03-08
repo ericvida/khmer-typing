@@ -8,6 +8,10 @@ Currently it keeps the .current class even if the string was finished.
 TODO: Space Typing Errors change the challenge string forever.
 ###
 
+
+
+const vowels = ['ា', 'េ', 'ើ']
+
 export tag view-challenge
 	def fontFamily
 		switch data.challenge_font
@@ -16,18 +20,30 @@ export tag view-challenge
 			else return "'freehand', cursive, script"
 
 
+	def getHighlighting item, index
+		if index is data.challenge_character && not data.level_finished
+			return 'current'
+
+		elif index <= data.challenge_character
+			if data.challenge_character == index + 1
+				const next_char = data.challenges[data.level_chosen][index + 1].char
+
+				if next_char
+					if vowels.indexOf(next_char) > -1
+						return 'current'
+
+
+			if item.correct
+				return 'correct'
+			else
+				return 'wrong'
+		return ''
+
 	def render
 		<self[ff:{fontFamily!}]>
 			<div.wrapper>
 				for item, i of data.challenges[data.level_chosen]
-					if i is data.challenge_character
-						<span .space=(item.char == ' ') .current> "{item.char}"
-
-					elif i <= data.challenge_character
-						<span .space=(item.char == ' ') .wrong=!item.correct .correct=item.correct> "{item.char}"
-
-					else
-						<span .space=(item.char == ' ') > "{item.char}"
+					<span .space=(item.char == ' ') .{getHighlighting(item, i)}> "{item.char}"
 
 
 	css &
@@ -69,3 +85,7 @@ export tag view-challenge
 	css .wrong c:rose5
 
 	css .current c:lime5  bdb:5px solid lime5
+
+	css .current::first-letter
+		# c:lime5  bdb:5px solid lime5
+		c:rose5  bdb:5px solid rose5

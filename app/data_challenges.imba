@@ -1,5 +1,7 @@
 # Typing Challenges. It's easier to type on a string, but easier to style if an array, so I use split.
 export const khmer_challenges = [
+	'កា ក្រា ខ្ញុំ'
+	'កា កេ កើ'
 	'ក ក ក'
 	'គ គ គ'
 	'ឝ ឝ ឝ'

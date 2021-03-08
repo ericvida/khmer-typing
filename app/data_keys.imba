@@ -364,8 +364,8 @@ export const data_keys = [
 	disabled: no
 	---
 	name: 'enter'
-	english: ['enter', 'enter']
-	khmer: ['បញ្ចូល', 'បញ្ចូល']
+	english: ['enter']
+	khmer: ['បញ្ចូល']
 	size: 'longer'
 	char: no
 	hand: 'right'

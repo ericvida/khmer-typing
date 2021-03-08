@@ -44,8 +44,15 @@ export tag view-keyboard
 
 
 	def highlight key
-		if data.challenge_character == data.challenges[data.level_chosen].length - 1 or not data.keyboard_hints
+		if not data.keyboard_hints
 			return no
+		
+		if data.level_finished
+			if key.english[0] is 'shift' or key.english[0] is '◀︎' or key.english[0] is  '▶︎' or key.english[0] is 'enter'
+				return yes
+			else
+				return no
+
 
 		const char = data.challenges[data.level_chosen][data.challenge_character].char
 

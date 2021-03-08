@@ -2,6 +2,7 @@ import {khmer_challenges, english_challenges} from './data_challenges'
 import {khmer, english} from './localization'
 import {data_keys} from './data_keys'
 import confetti from 'canvas-confetti'
+# import {syllables} from './syllables'
 
 for challange, index in khmer_challenges
 	khmer_challenges[index] = challange.split('').map(do(character) return {
@@ -67,6 +68,7 @@ export class State
 	level_unlocked = 0
 	level_chosen = 0
 	level_spm_threshold = 20
+	level_finished = no
 
 	# Score State
 	score_cpm = 0
@@ -97,6 +99,8 @@ export class State
 		keyboard_hints = !(getCookie('keyboard_hints') == 'false')
 		challenge_font = getCookie('challenge_font') || challenge_font
 		pressed_keys = []
+		# setCookie('sjfvn', JSON.stringify(array))
+		# let var = JSON.parse(getCookie('sjfvn'))
 
 		document.onkeydown = do(e) keydownTracker(e)
 
@@ -126,9 +130,10 @@ export class State
 		e.stopPropagation!
 		
 
-		if e.which == 13 || e.which == 39
+		if (e.which == 13 or e.which == 39) and not e.shiftKey
 			setLevel(level_chosen + 1)
-		elif e.which == 37
+
+		elif e.which is 37
 			setLevel(level_chosen - 1)
 
 		if e.shiftKey || e.key == 'Shift'
@@ -148,8 +153,8 @@ export class State
 		unless key
 			key = data_keys.find(do(el) return el.khmer.indexOf(e.key) > -1)
 
-		console.log e
-		console.log key, pressed_keys
+		# console.log e
+		# console.log key, pressed_keys
 		
 
 		if key
@@ -188,8 +193,12 @@ export class State
 					if score_cpm > 10000000
 						score_cpm = 1
 		if e.which == 8
-			if challenge_character > 0
+			if challenge_character > 0 && not level_finished
 				challenge_character--
+
+		if e.shiftKey && e.which == 13
+			setLevel(level_chosen)
+
 
 		imba.commit!
 
@@ -222,9 +231,12 @@ export class State
 			score_mistakes = 0
 			challenge_character = 0
 			start_time = 0
+			level_finished = no
 
 	def finishChallenge
 		start_time = 0
+		console.log 'finished'
+		level_finished = yes
 		if score_mistakes == 0 && level_unlocked == level_chosen && score_cpm >= level_spm_threshold
 			confetti({
 				particleCount: 200
@@ -233,6 +245,8 @@ export class State
 			})
 			if level_unlocked < challenges.length - 1
 				level_unlocked++
+				setCookie('level_unlocked', level_unlocked)
+		
 
 
 	def setChallengeFont language
