@@ -190,7 +190,7 @@ export const data_keys = [
 	---
 	name: 't'
 	english: ['t', 'T']
-	khmer: ['ត','ទ','ថ']
+	khmer: ['ត','ទ']
 	size: 'square'
 	char: yes
 	hand: 'left'
@@ -405,7 +405,7 @@ export const data_keys = [
 	char: no
 	hand: 'right'
 	finger: 'tenth'
-	disabled: yes
+	disabled: no
 	id: 13
 	---
 	name: 'left-shift'
@@ -615,18 +615,28 @@ export const data_keys = [
 	char: no
 	hand: 'both'
 	finger: 'seventh'
-	disabled: yes
+	disabled: no
 	id: 37
 	---
-	name: 'up-down-arrows'
-	english: ['▲', '▼']
-	khmer: ['▲', '▼']
+	name: 'up-arrow'
+	english: ['▲']
+	khmer: ['▲']
 	size: 'square'
 	char: no
 	hand: 'both'
 	finger: 'eighth'
-	disabled: yes
-	id: [38,40]
+	disabled: no
+	id: 38
+	---
+	name: 'down-arrow'
+	english: ['▼']
+	khmer: ['▼']
+	size: 'square'
+	char: no
+	hand: 'both'
+	finger: 'eighth'
+	disabled: no
+	id: 40
 	---
 	name: 'right-arrow'
 	english: ['▶︎']
@@ -635,6 +645,6 @@ export const data_keys = [
 	char: no
 	hand: 'both'
 	finger: 'ninth'
-	disabled: yes
+	disabled: no
 	id: 39
 ]

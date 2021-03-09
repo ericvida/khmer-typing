@@ -18,7 +18,7 @@ export tag view-challenge
 			when 'script' then return "'Moul', cursive, serif"
 			when 'modern' then return "'Dangrek', cursive, sans-serif"
 			else return "'freehand', cursive, script"
-
+	
 
 	def getHighlighting item, index
 		if index is data.challenge_character && not data.level_finished

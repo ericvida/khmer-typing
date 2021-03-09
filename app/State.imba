@@ -50,7 +50,7 @@ state.setChallengeFont('')
 export class State
 	# UI Settings
 	ui_language = "english"
-	keyboard_language = 'khmer'
+	keyboard_language = 'english'
 	keyboard_colored = yes
 	keyboard_hints = yes
 	
@@ -58,7 +58,7 @@ export class State
 	challenge_font = 'freehand'
 	
 	# Challenge Data
-	challenges = khmer_challenges
+	challenges = english_challenges
 	challenge_string = ''
 	challenge_character = 0
 	

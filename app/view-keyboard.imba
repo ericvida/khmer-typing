@@ -80,20 +80,20 @@ export tag view-keyboard
 
 		return key[data.keyboard_language].indexOf(char) > -1
 
-
-
-
 	def render
 		<self>
 			<.board>
 				let language = english
 				let set = 0
 				for key, i in data_keys
-					if key.name is 'up-down-arrows'
-						<.name-up-down-wrapper.{key.size} >
-							<.name-{key.name}>
-								<.half-key .disabled=key.disabled .{key.finger} .action=!key.char .{key.hand}> <span> key.english[0]
-								<.half-key .disabled=key.disabled .{key.finger} .action=!key.char .{key.hand}> <span> key.english[1]
+					if key.name is 'up-arrow'
+						<div[d:none]>
+					elif key.name is 'down-arrow'
+						<.two-half-keys-wrapper .{key.size}>
+							let upkey = data_keys[i - 1]
+							let downkey = data_keys[i]
+							<.key.half-key .pressed=pressed(key) .hint=highlight(key) .{key.finger}=data.keyboard_colored .disabled=upkey.disabled .{upkey.finger} .action=!upkey.char .{upkey.hand}> <span> upkey.english[0]
+							<.key.half-key .pressed=pressed(key) .hint=highlight(key) .{key.finger}=data.keyboard_colored .disabled=downkey.disabled .{downkey.finger} .action=!downkey.char .{downkey.hand}> <span> downkey.english[0]
 					else
 						<.key .hint=highlight(key) .disabled=key.disabled .{key.finger}=data.keyboard_colored .action=!key.char .{key.size} .name-{key.name} .{key.hand} .pressed=pressed(key)>
 							if key.char
@@ -198,7 +198,7 @@ export tag view-keyboard
 			ai:center jc:center
 			fs:1.1rem
 			t:0%
-			r:0% ta:center
+			r:0%
 		&.disabled, & .half-key.disabled
 			bxs:lg
 			bg:cooler6 @hover:cooler6
@@ -210,6 +210,7 @@ export tag view-keyboard
 			d:flex
 			bxs:inset 0 -.25rem 0 -.10rem gray9/50, sm, md, md, lg
 			span
+				jc:center
 				px:.4rem
 				fs:.7rem
 			&.left span.normal-preview
@@ -231,35 +232,36 @@ export tag view-keyboard
 			c:blue9
 			h:100%
 	
-	css .name-up-down-wrapper
-		rd:$radius
-		d:grid
+	css .two-half-keys-wrapper
 		pos:relative
 		us:none
-		span
-			pos:absolute
-			ta:center w:100%
-			fs:.7rem
+		bg:transparent
+		d:flex fld:column jc:space-between
 		&.disabled
 			bxs:lg
 			bg:cooler6 @hover:cooler6
 			transform:none
-
-	css .name-up-down-arrows
-		rd:$radius
-		d:grid
-		pos:absolute
-		t:0 r:0 b:0 l:0
-		d:flex jc:space-between fld:column
-		bxs:none @hover:none
+		
 		.half-key
+			h:1.1rem
 			grid-column: span 2
-			d:flex rd:$radius h:45% ai:center
+			d:flex rd:$radius ai:center ta:center
 			w:100%
 			us:none
 			bxs:inset 0 -.25rem 0 -.10rem gray9/50, sm, md, md, lg
+			span
+				pos:absolute
+				ta:center w:100%
+				fs:.7rem
 			&.disabled
 				bg:cooler6 @hover:cooler6
+	# css .up-down-arrows
+	# 	rd:$radius
+	# 	d:grid
+	# 	pos:absolute
+	# 	t:0 r:0 b:0 l:0
+	# 	d:flex jc:space-between fld:column ai:center
+	# 	bxs:none @hover:none
 	
 	css .name-spacebar 
 		grid-column: span 8
