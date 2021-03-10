@@ -24,15 +24,17 @@ tag view-root
 			<section>
 				<view-levels data=state>
 			<section>
-				css flex: 1 0  d:flex fld:column jc:flex-start
+				css d:flex flex: 1 1 10rem fld:column ai:center jc:center
 				<view-scores data=state>
+					css w:100%
 				<view-challenge data=state>
+					css w:100%
 				# <bird-view[fl: 1 0 of:hidden]>
-				<section>
-					css d:flex jc:center ai:start
-					<view-keyboard data=state>
 			<section>
-				css fl:1
+				css d:flex jc:start ai:center flg:1 fld:column
+				<view-keyboard data=state>
+			<section>
+				css d:flex jc:end fld:column
 				<view-settings data=state>
 	
 

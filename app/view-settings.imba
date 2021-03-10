@@ -47,7 +47,7 @@ export tag view-settings
 				<select bind=data.challenge_font>
 					<option @click=setChallengeFont("freehand") value="freehand"> "Handwritten"
 					<option @click=setChallengeFont("modern") value="modern"> "Modern"
-					<option @click=setChallengeFont("formal") value="formal"> "Formal"
+					<option @click=setChallengeFont("script") value="script"> "Script"
 				<label> 
 					data.lang.khmer_font
 
