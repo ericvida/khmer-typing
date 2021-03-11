@@ -24,9 +24,6 @@ import {data_keys} from './data_keys'
 - ✅ Make left arrow go back to the previous level
 - ✅ Make right arrow go to the next available level
 ###
-###
-— Change Delete to backspace
-###
 
 
 export tag view-keyboard
@@ -46,19 +43,14 @@ export tag view-keyboard
 	def highlight key
 		if not data.keyboard_hints
 			return no
-		
+
 		if data.level_finished
-			if key.english[0] is 'shift' or key.english[0] is '◀︎' or key.english[0] is  '▶︎' or key.english[0] is 'enter'
-				return yes
-			else
-				return no
+			return key.english[0] is 'shift' or key.english[0] is '◀︎' or key.english[0] is  '▶︎' or key.english[0] is 'enter'
 
 
 		const char = data.challenges[data.level_chosen][data.challenge_character].char
 
-		if key[data.keyboard_language].indexOf(char) == 0
-			return yes
-		elif key[data.keyboard_language].indexOf(char) == 1
+		if key[data.challenge_language].indexOf(char) > -1
 			return yes
 
 		if /[A-Za-z]/.test(char)
@@ -66,9 +58,9 @@ export tag view-keyboard
 				if key.english[0] == 'shift'
 					return yes
 		else
-			const khmer_char = data_keys.find(do(el) return el[data.keyboard_language].indexOf(char) > -1)
+			const khmer_char = data_keys.find(do(el) return el[data.challenge_language].indexOf(char) > -1)
 			if khmer_char
-				const index_of_khmer_char = khmer_char[data.keyboard_language].indexOf(char)
+				const index_of_khmer_char = khmer_char[data.challenge_language].indexOf(char)
 
 				if index_of_khmer_char == 1
 					if key.english[0] == 'shift'
@@ -80,6 +72,8 @@ export tag view-keyboard
 
 
 		return key[data.keyboard_language].indexOf(char) > -1
+
+
 
 	def render
 		<self>

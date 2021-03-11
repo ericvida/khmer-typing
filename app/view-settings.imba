@@ -5,6 +5,9 @@ export tag view-settings
 	def setKeyboardLanguage language
 		data.keyboard_language = language
 		data.setCookie('keyboard_language', data.keyboard_language)
+		data.setKeyboardLanguage(language)
+	
+	def setChallengeLanguage language
 		data.setChallengeLanguage(language)
 
 	def toggleColored
@@ -32,23 +35,29 @@ export tag view-settings
 				<label for="colorkeys" name="keylang">
 					data.lang.colors
 			<div>
-				<select bind=data.keyboard_language>
-					<option value="english" @click.setKeyboardLanguage("english")> "English"
-					<option value="khmer" @click.setKeyboardLanguage("khmer")> "Khmer"
+				<select bind=data.challenge_language>
+					<option value="english" @click=setChallengeLanguage("english")> "English"
+					<option value="khmer" @click=setChallengeLanguage("khmer")> "Khmer"
 				<label> 
+					data.lang.challenge_language
+			<div>
+				<select bind=data.keyboard_language>
+					<option value="english" @click=setKeyboardLanguage("english")> "English"
+					<option value="khmer" @click=setKeyboardLanguage("khmer")> "Khmer"
+				<label>
 					data.lang.keyboard_language
 			<div>
 				<select bind=data.ui_language>
 					<option value="english" @click=setUILanguage("english")> "English"
 					<option value="khmer" @click=setUILanguage("khmer")> "Khmer"
-				<label> 
+				<label>
 					data.lang.app_language
 			<div>
 				<select bind=data.challenge_font>
 					<option @click=setChallengeFont("freehand") value="freehand"> "Handwritten"
 					<option @click=setChallengeFont("modern") value="modern"> "Modern"
 					<option @click=setChallengeFont("script") value="script"> "Script"
-				<label> 
+				<label>
 					data.lang.khmer_font
 
 	css &
@@ -57,6 +66,7 @@ export tag view-settings
 		jc:space-around
 		bg:cooler9
 		p:3 
+		fs:0.85em
 		label c:gray1
 		us:none
 	

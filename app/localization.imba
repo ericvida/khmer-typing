@@ -8,6 +8,7 @@ export const english = {
 	keyboard_language: "Keyboard Language"
 	app_language: "App Language"
 	khmer_font: "Khmer Font"
+	challenge_language: "Challenge language"
 }
 
 export const khmer = {
@@ -20,4 +21,5 @@ export const khmer = {
 	keyboard_language: "ភាសាក្តារចុច"
 	app_language: "ភាសាកម្មវិធី"
 	khmer_font: "ពុម្ពអក្សរខ្មែរ"
+	challenge_language: "Challenge language"
 }

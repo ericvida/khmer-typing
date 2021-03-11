@@ -50,6 +50,7 @@ state.setChallengeFont('')
 export class State
 	# UI Settings
 	ui_language = "english"
+	challenge_language = 'khmer'
 	keyboard_language = 'khmer'
 	keyboard_colored = yes
 	keyboard_hints = yes
@@ -69,6 +70,21 @@ export class State
 	level_chosen = 0
 	level_spm_threshold = 20
 	level_finished = no
+
+	progress = {
+		english: {
+			level_count: english_challenges.length
+			level_unlocked: 0
+			level_chosen: 0
+			level_finished: no
+		}
+		khmer: {
+			level_count: khmer_challenges.length
+			level_unlocked: 0
+			level_chosen: 0
+			level_finished: no
+		}
+	}
 
 	# Score State
 	score_cpm = 0
@@ -90,20 +106,19 @@ export class State
 		ui_language = getCookie('ui_language') || ui_language
 		setUILanguage(ui_language)
 
-		keyboard_language = getCookie('keyboard_language') || keyboard_language
-		setChallengeLanguage(keyboard_language)
+		progress = JSON.parse(getCookie('progress')) || progress
+		updateProgress!
 
-		level_unlocked  = parseInt(getCookie('level_unlocked')) || level_unlocked 
-		level_chosen = parseInt(getCookie('level_chosen')) || level_chosen
+		keyboard_language = getCookie('keyboard_language') || keyboard_language
+		challenge_language = getCookie('challenge_language') || challenge_language
+		setChallengeLanguage(challenge_language)
+
 		keyboard_colored = !(getCookie('keyboard_colored') == 'false')
 		keyboard_hints = !(getCookie('keyboard_hints') == 'false')
 		challenge_font = getCookie('challenge_font') || challenge_font
-		pressed_keys = []
-		# setCookie('sjfvn', JSON.stringify(array))
-		# let var = JSON.parse(getCookie('sjfvn'))
+
 
 		document.onkeydown = do(e) keydownTracker(e)
-
 
 		document.onkeyup = do(e)
 			e.preventDefault!
@@ -113,7 +128,7 @@ export class State
 			if pressed_keys.indexOf('shift') < 0
 				unshiftChar! 
 
-			if e.which == 225
+			if e.keyCode == 225
 				pressed_keys.splice(pressed_keys.indexOf('alt'), 1)
 
 			if pressed_keys.indexOf('alt') < 0
@@ -130,16 +145,16 @@ export class State
 		e.stopPropagation!
 		
 
-		if (e.which == 13 or e.which == 39) and not e.shiftKey
+		if (e.keyCode == 13 or e.keyCode == 39) and not e.shiftKey
 			setLevel(level_chosen + 1)
 
-		elif e.which is 37
+		elif e.keyCode is 37
 			setLevel(level_chosen - 1)
 
 		if e.shiftKey || e.key == 'Shift'
 			shiftChar!
 
-		if e.altKey || e.key == 'Alt' || e.which == 225
+		if e.altKey || e.key == 'Alt' || e.keyCode == 225
 			altChar!
 
 		if pressed_keys.indexOf(e.key.toLowerCase!) == -1
@@ -152,10 +167,6 @@ export class State
 		let key = data_keys.find(do(el) return el.english.indexOf(e.key) > -1)
 		unless key
 			key = data_keys.find(do(el) return el.khmer.indexOf(e.key) > -1)
-
-		console.log e.which
-		# console.log key, pressed_keys.which
-		
 
 		if key
 			if key.char
@@ -192,11 +203,11 @@ export class State
 					# Fixed issue when score_cpm was equal to infinity.
 					if score_cpm > 10000000
 						score_cpm = 1
-		if e.which == 8
+		if e.keyCode == 8
 			if challenge_character > 0 && not level_finished
 				challenge_character--
 
-		if e.shiftKey && e.which == 13
+		if e.shiftKey && e.keyCode == 13
 			setLevel(level_chosen)
 
 
@@ -226,17 +237,21 @@ export class State
 
 	
 	def setLevel level
-		if 0 <= level <= level_unlocked
-			level_chosen = level
+		console.log progress[challenge_language].level_chosen, level
+		if 0 <= level <= progress[challenge_language].level_unlocked
+			progress[challenge_language].level_chosen = level
+			progress[challenge_language].level_finished = no
 			score_mistakes = 0
 			challenge_character = 0
 			start_time = 0
-			level_finished = no
+
+			updateProgress!
+
 
 	def finishChallenge
 		start_time = 0
-		console.log 'finished'
 		level_finished = yes
+
 		if score_mistakes == 0 && level_unlocked == level_chosen && score_cpm >= level_spm_threshold
 			confetti({
 				particleCount: 200
@@ -244,8 +259,8 @@ export class State
 				origin: { y: .8 }
 			})
 			if level_unlocked < challenges.length - 1
-				level_unlocked++
-				setCookie('level_unlocked', level_unlocked)
+				progress[challenge_language].level_unlocked++
+				updateProgress!
 		
 
 
@@ -266,11 +281,31 @@ export class State
 		keyboard_language = language
 		setCookie('keyboard_language', keyboard_language)
 
+	
+	def updateProgress
+		level_chosen = progress[challenge_language].level_chosen
+		level_count = progress[challenge_language].level_count
+		level_unlocked = progress[challenge_language].level_unlocked
+		level_finished = progress[challenge_language].level_finished
+
+		setCookie('progress', JSON.stringify(progress))
+		
+
 	def setChallengeLanguage language
+		challenge_language = language
+		setCookie('challenge_language', challenge_language)
+
+		score_mistakes = 0
+		challenge_character = 0
+		start_time = 0
+
 		if language == 'khmer'
 			challenges = khmer_challenges
 		else
 			challenges = english_challenges
+
+		updateProgress!
+
 
 
 	def getCookie c_name
