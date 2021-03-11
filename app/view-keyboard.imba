@@ -24,7 +24,10 @@ import {data_keys} from './data_keys'
 - ✅ Make left arrow go back to the previous level
 - ✅ Make right arrow go to the next available level
 ###
-
+tag keyboard-notification
+	css bg: cooler9 c:amber1 ff:monospace w:100% d:block mb:.5rem p:.5rem ta:center rd:.1rem
+	def render
+		<self> "current character"
 
 export tag view-keyboard
 	letter_index = 0
@@ -77,6 +80,7 @@ export tag view-keyboard
 
 	def render
 		<self>
+			<keyboard-notification>
 			<.board>
 				let language = english
 				let set = 0
