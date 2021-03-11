@@ -22,6 +22,7 @@ import {data_keys} from './data_keys'
 - ✅ Make left arrow go back to the previous level
 - ✅ Make right arrow go to the next available level
 - TODO: BUG: if i type command+letter the letter will be stuck with the .pressed class until I press the key again.
+- TODO: When choosing English keyboard doesn't show english challenges.
 ###
 ###
 — Change Delete to backspace
