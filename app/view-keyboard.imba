@@ -12,17 +12,17 @@ import {data_keys} from './data_keys'
 - ✅ allow backspace. 
 	I think it's better to allow backspace, than not allow backspace.
 	It teaches the user to use backspace. We can allow backspace after a certain level.
-- require character's per minute goal
-- Make challenge work with either english or khmer Keyboard Language, right now if I use the english keyboard layout, khmer challenges will not work.
+- TODO: require character's per minute goal
+- TODO: Make challenge work with either english or khmer Keyboard Language, right now if I use the english keyboard layout, khmer challenges will not work.
 	- Allow for khmer challenges to work with either english or khmer keyboard layout.
 	- OR force the keyboard layout to match the language of the challenge.
-- Make challenge work with either english or khmer PC System Keyboard. 
+- TODO: Make challenge work with either english or khmer PC System Keyboard. 
 	Right now. If I use a khmer keyboard on mac, it will not work.
+- TODO: BUG: if i type command+letter the letter will be stuck with the .pressed class until I press the key again.
+- TODO: When choosing English keyboard doesn't show english challenges.
 - ✅ Make Enter go to the next unlocked level if passed or repeat level if not passed.
 - ✅ Make left arrow go back to the previous level
 - ✅ Make right arrow go to the next available level
-- TODO: BUG: if i type command+letter the letter will be stuck with the .pressed class until I press the key again.
-- TODO: When choosing English keyboard doesn't show english challenges.
 ###
 ###
 — Change Delete to backspace
