@@ -337,6 +337,9 @@ export class State
 				elif index_of_khmer_char == 1
 					hint += 'Shift + '
 
+				elif index_of_khmer_char == 3
+					hint += 'Alt + Shift + '
+
 			keyboard_char = data_keys.find(do(el) return el['khmer'].indexOf(char) > -1)
 
 		if keyboard_char
