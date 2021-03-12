@@ -321,11 +321,11 @@ export class State
 
 		let keyboard_char
 
-		# Detect Chift and Alt.
+		# Detect Shift and Alt.
 		if /[A-Za-z]/.test(char)
 			if char == char.toUpperCase! && char != ' '
 				hint += 'Shift + '
-				keyboard_char = data_keys.find(do(el) return el['english'].indexOf(char) > -1)
+			keyboard_char = data_keys.find(do(el) return el['english'].indexOf(char) > -1)
 		else
 			const khmer_char = data_keys.find(do(el) return el[challenge_language].indexOf(char) > -1)
 			if khmer_char
@@ -342,7 +342,10 @@ export class State
 
 			keyboard_char = data_keys.find(do(el) return el['khmer'].indexOf(char) > -1)
 
-		if keyboard_char
+		# If it is space -- return space
+		if keyboard_char.id == 32
+			hint += "Spacebar"
+		elif keyboard_char
 			hint += keyboard_char[keyboard_language][0]
 		else
 			hint = keyboard_message

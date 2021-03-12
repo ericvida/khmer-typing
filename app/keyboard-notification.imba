@@ -15,6 +15,6 @@ export tag keyboard-message
 
 	
 	def render
-		<self> hint!
+		<self[lh:normal ws:pre]> hint!
 
 	css bg: cooler9 c:amber1 ff:monospace w:100% d:block mb:.5rem p:.5rem ta:center rd:.1rem
