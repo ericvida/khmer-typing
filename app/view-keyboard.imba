@@ -1,4 +1,5 @@
 import {data_keys} from './data_keys'
+import './keyboard-notification'
 ### TODOS: ✅
 — ✅ pressed state not working in khmer keyboard language
 — ✅ space press is not shown
@@ -24,10 +25,8 @@ import {data_keys} from './data_keys'
 - ✅ Make left arrow go back to the previous level
 - ✅ Make right arrow go to the next available level
 ###
-tag keyboard-notification
-	css bg: cooler9 c:amber1 ff:monospace w:100% d:block mb:.5rem p:.5rem ta:center rd:.1rem
-	def render
-		<self> "current character"
+
+
 
 export tag view-keyboard
 	letter_index = 0
@@ -73,14 +72,13 @@ export tag view-keyboard
 					if key.english[0] == 'alt'
 						return yes
 
-
 		return key[data.keyboard_language].indexOf(char) > -1
 
 
 
 	def render
 		<self>
-			<keyboard-notification>
+			<keyboard-message data=data>
 			<.board>
 				let language = english
 				let set = 0
@@ -123,7 +121,7 @@ export tag view-keyboard
 	# ========================			
 	css @keyframes hint
 		0% bg:cooler4
-		100% bg:cooler1
+		100% bg:red1
 	
 	css &
 		$radius:0.3rem

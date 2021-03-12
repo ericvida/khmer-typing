@@ -9,6 +9,10 @@ export const english = {
 	app_language: "App Language"
 	khmer_font: "Khmer Font"
 	challenge_language: "Challenge language"
+	hint_restart: "Press Shift + Enter to restart"
+	hint_next: "Press Enter to continue"
+	press: "Press"
+	to_begin: "to begin"
 }
 
 export const khmer = {
@@ -22,4 +26,8 @@ export const khmer = {
 	app_language: "ភាសាកម្មវិធី"
 	khmer_font: "ពុម្ពអក្សរខ្មែរ"
 	challenge_language: "Challenge language"
+	hint_restart: "Press Shift + Enter to restart"
+	hint_next: "Press Enter to continue"
+	press: "Press"
+	to_begin: "to begin"
 }

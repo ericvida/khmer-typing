@@ -71,6 +71,8 @@ export class State
 	level_spm_threshold = 20
 	level_finished = no
 
+	keyboard_message = ''
+
 	progress = {
 		english: {
 			level_count: english_challenges.length
@@ -113,6 +115,9 @@ export class State
 		challenge_language = getCookie('challenge_language') || challenge_language
 		setChallengeLanguage(challenge_language)
 
+	
+		initializeHint!
+
 		keyboard_colored = !(getCookie('keyboard_colored') == 'false')
 		keyboard_hints = !(getCookie('keyboard_hints') == 'false')
 		challenge_font = getCookie('challenge_font') || challenge_font
@@ -133,8 +138,6 @@ export class State
 
 			if pressed_keys.indexOf('alt') < 0
 				unaltChar!
-
-			# console.log pressed_keys
 
 			imba.commit!
 
@@ -173,14 +176,13 @@ export class State
 				# Detect what key the user pressed in relation to alt and shift keys
 				let key_char = ''
 				if shift_pressed && not alt_pressed
-					key_char = key[keyboard_language][1]
+					key_char = key[challenge_language][1]
 				elif not shift_pressed && alt_pressed
-					key_char = key[keyboard_language][2]
+					key_char = key[challenge_language][2]
 				elif shift_pressed && alt_pressed
-					key_char = key[keyboard_language][3]
+					key_char = key[challenge_language][3]
 				else
-					key_char = key[keyboard_language][0]
-
+					key_char = key[challenge_language][0]
 
 
 				if key_char == challenges[level_chosen][challenge_character].char and not start_time
@@ -191,26 +193,27 @@ export class State
 
 					if !challenges[level_chosen][challenge_character].correct
 						score_mistakes++
+					
+					keyboard_message = ''
 
 					if challenge_character < challenges[level_chosen].length - 1
 						challenge_character++
 					else
 						finishChallenge!
 						return
-				
+
 					const timespan = Date.now! - start_time
 					score_cpm = (challenge_character / timespan) * 60000
 					# Fixed issue when score_cpm was equal to infinity.
 					if score_cpm > 10000000
 						score_cpm = 1
+
 		if e.keyCode == 8
 			if challenge_character > 0 && not level_finished
 				challenge_character--
 
 		if e.shiftKey && e.keyCode == 13
 			setLevel(level_chosen)
-
-
 		imba.commit!
 
 
@@ -237,15 +240,16 @@ export class State
 
 	
 	def setLevel level
-		console.log progress[challenge_language].level_chosen, level
 		if 0 <= level <= progress[challenge_language].level_unlocked
 			progress[challenge_language].level_chosen = level
 			progress[challenge_language].level_finished = no
 			score_mistakes = 0
 			challenge_character = 0
 			start_time = 0
+			score_cpm = 0
 
 			updateProgress!
+			initializeHint!
 
 
 	def finishChallenge
@@ -261,7 +265,11 @@ export class State
 			if level_unlocked < challenges.length - 1
 				progress[challenge_language].level_unlocked++
 				updateProgress!
-		
+
+
+	def initializeHint
+		keyboard_message = "{lang.press} {getHint!} {lang.to_begin}"
+
 
 
 	def setChallengeFont language
@@ -306,6 +314,37 @@ export class State
 
 		updateProgress!
 
+
+	def getHint
+		let hint = ''
+		const char = challenges[level_chosen][challenge_character].char
+
+		let keyboard_char
+
+		# Detect Chift and Alt.
+		if /[A-Za-z]/.test(char)
+			if char == char.toUpperCase! && char != ' '
+				hint += 'Shift + '
+				keyboard_char = data_keys.find(do(el) return el['english'].indexOf(char) > -1)
+		else
+			const khmer_char = data_keys.find(do(el) return el[challenge_language].indexOf(char) > -1)
+			if khmer_char
+				const index_of_khmer_char = khmer_char[challenge_language].indexOf(char)
+
+				if index_of_khmer_char == 2
+					hint += 'Alt + '
+
+				elif index_of_khmer_char == 1
+					hint += 'Shift + '
+
+			keyboard_char = data_keys.find(do(el) return el['khmer'].indexOf(char) > -1)
+
+		if keyboard_char
+			hint += keyboard_char[keyboard_language][0]
+		else
+			hint = keyboard_message
+
+		return hint
 
 
 	def getCookie c_name
